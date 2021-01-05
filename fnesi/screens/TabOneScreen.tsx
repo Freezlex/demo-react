@@ -1,38 +1,39 @@
-import React, { Component } from 'react';
-import { Container, Header, Content, Button, Text } from 'native-base';
-import {StyleSheet} from "react-native";
-export default class ButtonBlockExample extends Component {
-  render() {
-    return (
-        <Container style={styles.container}>
-          <Content>
-            <Button block style={styles.button}>
-              <Text>Jouer</Text>
-            </Button>
-            <Button block info style={styles.button}>
-              <Text>Créer une salle</Text>
-            </Button>
-            <Button block info style={styles.button}>
-              <Text>Rejoindre</Text>
-            </Button>
-            <Button block info style={styles.button}>
-              <Text>Partie rapide</Text>
-            </Button>
-          </Content>
-        </Container>
-    );
-  }
+import * as React from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import { View } from '../components/Themed';
+import Background from "./Background";
+import PlayButton from "./Buttons/Play";
+import CreateGameButton from "./Buttons/CreateGame";
+import JoinGameButton from "./Buttons/JoinGame";
+import QuickGameButton from "./Buttons/QuickGame";
+
+export default function TabOneScreen() {
+  return (
+
+      <SafeAreaView style={styles.container}>
+
+      <View style={styles.view}>
+
+        <PlayButton/>
+        <CreateGameButton/>
+        <JoinGameButton/>
+        <QuickGameButton/>
+
+      </View>
+
+      </SafeAreaView>
+  );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 100,
-  },
-  button: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom:20,
-  }
+const  styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        height: 500,
+        backgroundColor: '#6F9FCE'
+    },
+    view: {
+        marginTop: 50,
+        flex: 1,
+    },
 });
 
