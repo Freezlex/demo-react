@@ -13,13 +13,16 @@ export default function PlayButton(){
 
 const  styles = StyleSheet.create({
     button: {
-        borderRadius: 20,
+        borderRadius: 8,
         paddingVertical: 30,
         backgroundColor: '#28537D',
         marginHorizontal: 20,
         marginBottom: 30,
         borderBottomColor: '#1e3c5a',
         borderBottomWidth: 5,
+        borderEndWidth: 5,
+        borderEndColor: '#1e3c5a',
+        borderBottomLeftRadius: 3,
 
     },
     buttonText: {

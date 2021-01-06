@@ -20,6 +20,9 @@ const  styles = StyleSheet.create({
         marginBottom: 30,
         borderBottomColor: '#205183',
         borderBottomWidth: 5,
+        borderEndWidth: 5,
+        borderEndColor: '#205183',
+        borderBottomLeftRadius: 3,
     },
     buttonText: {
         color: 'white',
