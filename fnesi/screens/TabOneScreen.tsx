@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import { View } from '../components/Themed';
-import Background from "./Background";
 import PlayButton from "./Buttons/Play";
 import CreateGameButton from "./Buttons/CreateGame";
 import JoinGameButton from "./Buttons/JoinGame";
