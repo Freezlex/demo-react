@@ -1,45 +1,39 @@
 import * as React from 'react';
-import {Button, Image, SafeAreaView, StyleSheet} from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import {useState} from 'react';
-import Chat from '../components/Chat';
-
+import {SafeAreaView, StyleSheet} from 'react-native';
+import { View } from '../components/Themed';
+import Background from "./Background";
+import PlayButton from "./Buttons/Play";
+import CreateGameButton from "./Buttons/CreateGame";
+import JoinGameButton from "./Buttons/JoinGame";
+import QuickGameButton from "./Buttons/QuickGame";
 
 export default function TabOneScreen() {
-
-  const [shouldShow, setShouldShow] = useState(true);
   return (
-    <View style={styles.container}>
 
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator } lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      <SafeAreaView style={styles.container}>
 
-    </View>
+        <View style={styles.view}>
+
+          <PlayButton/>
+          <CreateGameButton/>
+          <JoinGameButton/>
+          <QuickGameButton/>
+
+        </View>
+
+      </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
+const  styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: 500,
+    backgroundColor: '#6F9FCE'
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    fontFamily: 'press-2-start'
-  },
-  image: {
+  view: {
+    marginTop: 50,
     flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center"
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    backgroundColor: '#6F9FCE'
   },
 });
