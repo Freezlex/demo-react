@@ -5,7 +5,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+import {StyleSheet} from 'react-native';
 
+const image = { uri: "https://reactjs.org/logo-og.png" };
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -15,9 +17,21 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
+
         <Navigation colorScheme={colorScheme} />
+
         <StatusBar />
       </SafeAreaProvider>
     );
   }
+
 }
+const styles = StyleSheet.create({
+
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
+
+});
