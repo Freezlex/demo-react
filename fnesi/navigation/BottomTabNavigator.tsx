@@ -8,6 +8,8 @@ import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList } from '../types';
+import TabThreeScreen from '../screens/TabThreeScreen';
+import TabFourScreen from '../screens/TabFourScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -32,6 +34,20 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
+        <BottomTab.Screen
+            name="TabThree"
+            component={TabThreeScreen}
+            options={{
+                tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+            }}
+        />
+        <BottomTab.Screen
+            name="TabFour"
+            component={TabFourScreen}
+            options={{
+                tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+            }}
+        />
     </BottomTab.Navigator>
   );
 }

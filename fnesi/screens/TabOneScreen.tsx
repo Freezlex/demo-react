@@ -2,10 +2,10 @@ import * as React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import { View } from '../components/Themed';
 import Background from "./Background";
-import PlayButton from "./Buttons/Play";
-import CreateGameButton from "./Buttons/CreateGame";
-import JoinGameButton from "./Buttons/JoinGame";
-import QuickGameButton from "./Buttons/QuickGame";
+import PlayButton from "../components/Buttons/Play";
+import CreateGameButton from "../components/Buttons/CreateGame";
+import JoinGameButton from "../components/Buttons/JoinGame";
+import QuickGameButton from "../components/Buttons/QuickGame";
 
 export default function TabOneScreen() {
   return (
