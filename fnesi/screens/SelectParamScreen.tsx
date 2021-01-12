@@ -9,7 +9,7 @@ import { Text, View } from '../components/Themed';
 
 
 
-export default function TabFourScreen() {
+export default function SelectParam() {
     const [selectedValueTheme, setSelectedValueTheme] = useState("Pas de thème selectionné");
     const [selectedValueLevel, setSelectedValueLevel] = useState("Pas de level selectionné");
 
