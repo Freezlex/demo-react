@@ -6,10 +6,11 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import RoomScreen from '../screens/RoomScreen';
 import { BottomTabParamList } from '../types';
-import TabThreeScreen from '../screens/TabThreeScreen';
-import TabFourScreen from '../screens/TabFourScreen';
+import SelectPrivatePublicScreen from '../screens/SelectPrivatePublicScreen';
+import SelectParamScreen from '../screens/SelectParamScreen';
+import QuestionsScreen from '../screens/QuestionsScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -28,22 +29,29 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="TabTow"
+        component={RoomScreen}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
       />
         <BottomTab.Screen
-            name="TabThree"
-            component={TabThreeScreen}
+            name="Private/Public"
+            component={SelectPrivatePublicScreen}
             options={{
                 tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
             }}
         />
         <BottomTab.Screen
-            name="TabFour"
-            component={TabFourScreen}
+            name="SelectParam"
+            component={SelectParamScreen}
+            options={{
+                tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+            }}
+        />
+        <BottomTab.Screen
+            name="Questions"
+            component={QuestionsScreen}
             options={{
                 tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
             }}

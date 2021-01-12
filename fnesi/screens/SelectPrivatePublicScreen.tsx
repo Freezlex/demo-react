@@ -6,7 +6,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import PublicGameButton from "../components/Buttons/PublicGame";
 import PrivateGameButton from "../components/Buttons/PrivateGame";
 
-export default function TabThreeScreen() {
+export default function SelectPrivatePublicScreen() {
   return (
     <SafeAreaView style={styles.container}>
 
