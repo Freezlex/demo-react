@@ -3,14 +3,42 @@ import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
 import { RootStackParamList } from '../../types';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import {useState} from 'react';
 
 
-export default function PrivateGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
+export default function PublicGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
     const navigation = useNavigation( );
+
+    const [password,setPassword] = useState('');
+    const [code,setCode] =useState('');
+    const [pseudo,setPseudo] = useState('Host')
+
+    async function createRoom() {
+         fetch("http://localhost:8080/room/new?publicRoom=true")
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                setPassword(json.password);
+                setCode(json.id)
+                navigation.navigate("Param", {
+                    password: json.password,
+                    code: json.id,
+                    pseudo: pseudo,
+                    publicRoom: true,
+                    local: false,
+                })
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+
+    }
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('Param')} >
+        <TouchableOpacity onPress={() => createRoom()} >
             <View style={styles.button}>
-                <Text style={styles.buttonText}>Priver</Text>
+                <Text style={styles.buttonText}>Public</Text>
             </View>
         </TouchableOpacity>
     )

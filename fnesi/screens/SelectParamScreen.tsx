@@ -1,15 +1,23 @@
 import React, {Component, useState} from 'react';
-import {Modal, TouchableOpacity, Alert, StyleSheet, Picker, ScrollView} from 'react-native';
+import {Modal, TouchableOpacity, Alert, StyleSheet, ScrollView, TextInput} from 'react-native';
 import {CheckBox} from 'react-native-elements'
-import PlayButton from "../components/Buttons/Play"
-import EditScreenInfo from "../components/EditScreenInfo";
 
 
 import { Text, View } from '../components/Themed';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 
 
 export default function SelectParamScreen() {
+    const route = useRoute();
+    const{ local } = route.params;
+    const{ publicRoom } = route.params;
+    const {pseudo} = route.params;
+    const {code } = route.params;
+    const {password } = route.params;
+
+
+
     const [selectedValueTheme, setSelectedValueTheme] = useState("Pas de thème selectionné");
     const [selectedValueLevel, setSelectedValueLevel] = useState("Pas de level selectionné");
 
@@ -17,6 +25,7 @@ export default function SelectParamScreen() {
 
     const [modalVisibleTwo, setModalVisibleTwo] = useState(false);
 
+    const [modSansCorrection, setmodSansCorrection] = useState(false);
     const [checkBoxLevel1, setcheckBoxLevel1] = useState(false);
     const [checkBoxLevel2, setcheckBoxLevel2] = useState(false);
     const [checkBoxLevel3, setcheckBoxLevel3] = useState(false);
@@ -152,8 +161,7 @@ export default function SelectParamScreen() {
         </ScrollView>
     )
 
-    console.log(selectedValueLevel)
-
+    console.log(selectedValueLevel);
     const modalFooterOne = (
         <View style={styles.modalFooter}>
             <View style={styles.divider}></View>
@@ -178,13 +186,13 @@ export default function SelectParamScreen() {
         <View style={styles.modalFooter}>
             <View style={styles.divider}></View>
             <View style={{flexDirection: "row-reverse", margin: 10}}>
-                <TouchableOpacity style={{...styles.actions, backgroundColor: "#db2828"}}
+                <TouchableOpacity style={{...styles.actions, backgroundColor: "#8d0700"}}
                                   onPress={() => {
                                       setModalVisibleTwo(!modalVisibleTwo);
                                   }}>
                     <Text style={styles.actionText}>Annuler</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{...styles.actions, backgroundColor: "#21ba45"}}
+                <TouchableOpacity style={{...styles.actions, backgroundColor: "#028d05"}}
                                   onPress={() => {
                                       setModalVisibleTwo(!modalVisibleTwo);
                                   }}>
@@ -236,6 +244,7 @@ export default function SelectParamScreen() {
         </Modal>
     )
 
+    const navigation = useNavigation( );
     return (
         <View style={styles.container}>
 
@@ -273,7 +282,19 @@ export default function SelectParamScreen() {
             </Text>
             <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
-            <PlayButton/>
+            <CheckBox
+                title='Mode sans correction'
+                value={modSansCorrection}
+                checked={modSansCorrection}
+                onPress={() => {
+                    setmodSansCorrection(!modSansCorrection);
+                }}/>
+
+            <TouchableOpacity onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection}) : navigation.navigate("Room", {code:code,password:password,pseudo:pseudo,isHost:true ,modSansCorrection : modSansCorrection})} >
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>Jouer</Text>
+                </View>
+            </TouchableOpacity>
         </View>
 
     );
@@ -288,7 +309,7 @@ const styles = StyleSheet.create({
     ValueCheckBox:{
         fontWeight: "bold",
         fontSize: 13,
-        color: "#2fb7bd",
+        color: "#000000",
     },
     scrollView: {
         height: '53%',

@@ -1,15 +1,21 @@
 import * as React from 'react';
 import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { View } from '../components/Themed';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 export default function Classement() {
+    const route = useRoute();
+    const { points} = route.params;
+    const navigation = useNavigation( );
+
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titreCenter}>
                 <Text style={styles.title}>Classement</Text>
             </View>
             <View style={styles.textAlign}>
-                <Text style={styles.text}>1er Pseudo 46 Points</Text>
+                <Text style={styles.text}>1er Pseudo {points} Points</Text>
             </View>
             <View style={styles.view}>
                 <TouchableOpacity>
@@ -17,7 +23,7 @@ export default function Classement() {
                         <Text style={styles.buttonText}>Detail</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Continuer</Text>
                     </View>

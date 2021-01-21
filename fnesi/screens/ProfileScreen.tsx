@@ -15,7 +15,7 @@ export default function ProfileScreen() {
                 <Image style={styles.logo} source={require("../assets/images/person.png")}></Image>
                 <Text>Nom / Pseudo (Année)</Text>
                 <Text>Mes badges</Text>
-                <Text>Thèmes joués récemment</Text>
+                <Text>Set de question joués récemment</Text>
                 <Text>Se déconnecter</Text>
             </View>
         </SafeAreaView>

@@ -1,6 +1,16 @@
 import React, { useState } from "react";
-import {FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-
+import {
+    FlatList,
+    SafeAreaView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    Animated,
+    Dimensions
+} from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 const DATA = [
     {
@@ -13,30 +23,39 @@ const DATA = [
         ]
     },
     {
-        question: "Qui est le meilleur dev",
+        question: "Que signifie le préfixe : brady?",
         answers: [
-            { id: "1", text: "Nathan"  },
-            { id: "2", text: "Julien"  },
-            { id: "3", text: "Justin Trudo"},
-            { id: "4", text: "Florian ", correct: true}
+            { id: "1", text: "En dehors"  },
+            { id: "2", text: "Lent" , correct: true },
+            { id: "3", text: "A l'intérieur"},
+            { id: "4", text: "Autour "}
         ]
     },
     {
-        question: "Question 3",
+        question: "Que signifie le préfixe : hypo?",
         answers: [
-            { id: "1", text: "Reponse 1" },
-            { id: "2", text: "Reponse 2"  },
-            { id: "3", text: "Reponse 3"  },
-            { id: "4", text: "Reponse 4", correct: true  }
+            { id: "1", text: " Au dessous, diminution" , correct: true},
+            { id: "2", text: "Auprès de, contre, à travers, voisin"  },
+            { id: "3", text: "Beaucoup, plusieurs"   },
+            { id: "4", text: "Rapide" }
         ]
     },
     {
-        question: "Question 4",
+        question: "Que signifie le terme : cyanosé  ?",
         answers: [
-            { id: "1", text: "Mais oui c'est clair" },
-            { id: "2", text: "La dynamisme des sport" },
-            { id: "3", text: "Congolexicomatisation des lois du marché" },
-            { id: "4", text: "La reponse D", correct: true }
+            { id: "1", text: "Peur de l'eau" , correct: true  },
+            { id: "2", text: "Coloration bleutée de la peau et des ongles" , correct: true  },
+            { id: "3", text: "Se parler à soi-même" },
+            { id: "4", text: "Ralentissement psychopathologique du cours de la pensée" }
+        ]
+    },
+    {
+        question: "Que signifie le terme : pyrogène ?",
+        answers: [
+            { id: "1", text: "Ablation / Enlever"},
+            { id: "2", text: "Ecoulement"  },
+            { id: "3", text: "Qui provoque de la fièvre",correct: true  },
+            { id: "4", text: "Diminution de la quantité de thrombocytes" }
         ]
     },
 ];
@@ -50,9 +69,50 @@ const QuestionsScreen = () => {
     const [question , nextQuestion] = useState(0);
     const [valid , isValid] = useState(false);
     const [pause , enpause] = useState(false);
-    const [points , addpoints] = useState(0)
+    const [points , addpoints] = useState(0);
+    const navigation = useNavigation();
+    const route = useRoute();
+    const {modSansCorrection} = route.params;
+    const [timerIsPlay, setTimer] = React.useState(false);
+    const [seconds, setSeconds] = React.useState(10);
 
-    const renderItem = ({ item}) => {
+
+    const topValue = useState(new Animated.Value(0)) [0]
+    const { height, width } = Dimensions.get('window');
+
+
+    function moveBlock() {
+        console.log(timerIsPlay)
+        setTimer(true);
+
+        Animated.timing(topValue,{
+            toValue: height,
+            duration: seconds * 1000,
+            useNativeDriver: false
+        }).start()
+    }
+
+
+
+
+    React.useEffect( () => {
+        console.log(timerIsPlay)
+
+        if (timerIsPlay) {
+            if (seconds > 0) {
+                setTimeout(() => setSeconds(seconds - 1), 1000);
+            } else {
+                // @ts-ignore
+                console.log('BOOOOM!');
+            }
+        }
+    });
+
+
+
+        const renderItem = ({item}) => {
+            moveBlock
+
         const backgroundColor = item.id === selectedId ? "#172f46" : "#295B8D";
 
         function validAnswer(id , correct) {
@@ -76,7 +136,7 @@ const QuestionsScreen = () => {
     };
 
     const Item = ({ item, onPress , style }) => (
-        <TouchableOpacity onPress={onPress} style={[styles.button , pause ?  item.correct ? {backgroundColor: "#168d20"} : {backgroundColor:"#8d0700"} : style ]}>
+        <TouchableOpacity onPress={onPress} style={[styles.button , pause ? modSansCorrection ? {backgroundColor: "#5d645c"} :  item.correct ? {backgroundColor: "#168d20"} : {backgroundColor:"#8d0700"} : style ]}>
             <Text style={styles.buttonText}>{item.text}</Text>
         </TouchableOpacity>
     );
@@ -86,6 +146,7 @@ const QuestionsScreen = () => {
             console.log("Bravo GG");
             addpoints(points +1);
             enpause(true);
+            isValid(false)
             setSelectedId(null)
         }
         else {
@@ -96,40 +157,80 @@ const QuestionsScreen = () => {
     }
 
     function continuer() {
-        nextQuestion(question + 1)
-        enpause(false);
+        if (question === 4) {
+            nextQuestion(0);
+            addpoints(0);
+            enpause(false);
+                navigation.navigate('Classement', {
+                    points: points})}
+
+        else {
+            nextQuestion(question + 1);
+            enpause(false);
+
+        }
     }
-
     return (
+        <View style={styles.block} >
 
-        <SafeAreaView style={styles.container}>
 
-            <View>
+            <SafeAreaView style={styles.container} >
+                <Text style={{
+                    zIndex: 9999,
+                    fontSize: 60,
+                    color: 'white',
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>{seconds}</Text>
+                <Animated.View style={[{
+                    width:'100%',
+                    height: height,
+                    marginTop: topValue,
+                    position: 'absolute',
+                    backgroundColor: '#2fb7bd'},] }>
+                </Animated.View>
 
-                <Text style={styles.title}>Q{question + 1} {DATA[question].question}</Text>
+                <View style={{
 
-                <FlatList
-                    data={DATA[question].answers}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    extraData={selectedId}
-                />
+                    zIndex: 9999,
+                    margin: 'auto',
+                    justifyContent: 'center',
+                    alignItems: 'center',}}>
 
-            </View>
-            <TouchableOpacity onPress={pause ? continuer : validate}  style={[styles.buttonNext ]}>
-                <Text style={styles.buttonText}>{pause ? "Continuer" : "Valider"  }</Text>
-            </TouchableOpacity>
-        </SafeAreaView>
+                    <Text style={styles.title}>Q{question + 1} {DATA[question].question}</Text>
+
+                    <FlatList
+                        data={DATA[question].answers}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id}
+                        extraData={selectedId}
+                    />
+
+                </View>
+                <TouchableOpacity onPress={pause ? continuer : validate}  style={[styles.buttonNext ]}>
+                    <Text style={styles.buttonText}>{pause ? "Continuer" : "Valider"  }</Text>
+                </TouchableOpacity>
+
+            </SafeAreaView>
+
+        </View>
     );
+
 };
 
 
 const styles = StyleSheet.create({
+    block: {
+        height: '100%'
+    },
     view: {
         marginTop: 50,
         flex: 1,
     },
     container: {
+        paddingTop : 20,
         flex: 1,
         backgroundColor: '#6F9FCE'
     },
@@ -174,7 +275,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingVertical: 20,
         backgroundColor: '#295b8d',
-        marginHorizontal: 170,
+        marginHorizontal: "30%",
         marginBottom: 20,
         borderBottomColor: '#274e75',
         borderBottomWidth: 5,

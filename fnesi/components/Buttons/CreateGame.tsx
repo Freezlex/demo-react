@@ -1,15 +1,20 @@
 import * as React from 'react';
 import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
+import { RootStackParamList } from '../../types';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
-export default function CreateGameButton(){
-    return(
-        <TouchableOpacity>
+export default function CreateGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
+    const navigation = useNavigation( );
+    return (
+        <TouchableOpacity onPress={() => navigation.navigate('P/P')} >
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Creer une partie</Text>
             </View>
         </TouchableOpacity>
     )
 }
+
 
 const  styles = StyleSheet.create({
     button: {

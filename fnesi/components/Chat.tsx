@@ -1,8 +1,8 @@
 import {Text, View} from './Themed';
 import * as React from 'react';
 import {useState} from 'react';
-import {Button, FlatList, SafeAreaView, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
+import {Button, FlatList, SafeAreaView, StyleSheet, TextInput} from 'react-native';
+import {AntDesign, Ionicons} from "@expo/vector-icons";
 
 export default function Chat() {
     const [initialElements, changeEl] = useState([
@@ -13,7 +13,6 @@ export default function Chat() {
     const [idx, incr] = useState(2);
 
     let addElement: () => void;
-    ;
     addElement = () => {
         let newArray = [...initialElements, {id: idx, text: value}];
         incr(idx + 1);
@@ -34,15 +33,19 @@ export default function Chat() {
                     renderItem={item => (<Text style={styles.title}>{item.item.text}</Text>)}/>
             </View>
             <View style={styles.view}>
+                <View style={styles.input}>
 
-                <TextInput
-                    style={styles.input}
-                    onChangeText={text => onChangeText(text)}
-                    value={value}
-                />
-                <Button
-                    title="Entrer"
-                    onPress={addElement}/>
+                    <TextInput
+                        onChangeText={text => onChangeText(text)}
+                        value={value}
+                    />
+                </View>
+
+                <View style={styles.icon}>
+
+                    <AntDesign name="rightcircle" size={32} color="black"  onPress={addElement}/>
+
+                </View>
             </View>
 
         </SafeAreaView>
@@ -57,7 +60,7 @@ const styles = StyleSheet.create({
             height:'50%',
             borderWidth: 2,
             borderRadius: 6,
-            marginTop: 30,
+            marginTop: 55,
             marginHorizontal: '1%',
             backgroundColor: '#2e6294',
         },
@@ -67,6 +70,8 @@ const styles = StyleSheet.create({
             bottom: 0,
             width: '98%',
             marginHorizontal: '1%',
+            flexDirection: 'row',
+            marginBottom: '1%',
 
         },
         text: {
@@ -87,12 +92,19 @@ const styles = StyleSheet.create({
             borderColor: 'black',
             borderWidth: 2,
             backgroundColor: '#2e6294',
+            borderRadius: 8,
+            width: '88%',
         },
 
         title: {
             fontSize: 15,
             fontWeight: 'bold',
             backgroundColor: '#2e6294',
-        }
+        },
+        icon: {
+            marginLeft: '2%',
+            marginTop: 3,
+            backgroundColor: '#2e6294',
+        },
     },
 );

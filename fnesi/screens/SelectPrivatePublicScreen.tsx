@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, TextInput} from 'react-native';
 import { View } from '../components/Themed';
 
 import EditScreenInfo from '../components/EditScreenInfo';
-import PublicGameButton from "../components/Buttons/PublicGame";
-import PrivateGameButton from "../components/Buttons/PrivateGame";
+import PublicGameButton from "../components/Buttons/PublicGameButton";
+import PrivateGameButton from "../components/Buttons/PrivateGameButton";
+import {useState} from 'react';
 
 export default function SelectPrivatePublicScreen() {
   return (
