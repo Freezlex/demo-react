@@ -43,7 +43,7 @@ const DATA = [
     {
         question: "Que signifie le terme : cyanosé  ?",
         answers: [
-            { id: "1", text: "Peur de l'eau" , correct: true  },
+            { id: "1", text: "Peur de l'eau"  },
             { id: "2", text: "Coloration bleutée de la peau et des ongles" , correct: true  },
             { id: "3", text: "Se parler à soi-même" },
             { id: "4", text: "Ralentissement psychopathologique du cours de la pensée" }
