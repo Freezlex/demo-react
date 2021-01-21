@@ -1,15 +1,22 @@
 import * as React from 'react';
 import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
+import { RootStackParamList } from '../../types';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
-export default function PublicGameButton(){
-    return(
-        <TouchableOpacity>
+
+export default function PrivateGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
+    const navigation = useNavigation( );
+    return (
+        <TouchableOpacity onPress={() => navigation.navigate('Param')} >
             <View style={styles.button}>
-                <Text style={styles.buttonText}>Public</Text>
+                <Text style={styles.buttonText}>Priver</Text>
             </View>
         </TouchableOpacity>
     )
 }
+
+
 
 const  styles = StyleSheet.create({
     button: {

@@ -1,15 +1,21 @@
 import * as React from 'react';
 import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
+import { RootStackParamList } from '../../types';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
-export default function PrivateGameButton(){
-    return(
-        <TouchableOpacity>
+export default function JoinGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
+    const navigation = useNavigation( );
+    return (
+        <TouchableOpacity onPress={() => navigation.navigate('Room')} >
             <View style={styles.button}>
-                <Text style={styles.buttonText}>Priver</Text>
+                <Text style={styles.buttonText}>Rejoindre une partie</Text>
             </View>
         </TouchableOpacity>
     )
 }
+
+
 
 const  styles = StyleSheet.create({
     button: {

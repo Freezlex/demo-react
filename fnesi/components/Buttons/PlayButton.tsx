@@ -1,9 +1,13 @@
 import * as React from 'react';
 import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
+import { RootStackParamList } from '../../types';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
-export default function PlayButton(){
-    return(
-        <TouchableOpacity>
+export default function PlayButton (){
+    const navigation = useNavigation( );
+    return (
+        <TouchableOpacity onPress={() => navigation.navigate('Param')} >
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Jouer</Text>
             </View>
