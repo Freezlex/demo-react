@@ -33,11 +33,12 @@ export default function Classement() {
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         height: 500,
-        backgroundColor: '#6F9FCE',
+        backgroundColor: '#2fb7bd',
     },
     view: {
         position: 'absolute',
@@ -54,7 +55,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         color: '#fff',
-        fontFamily: 'press-2-start',
     },
     text: {
         fontSize: 20,
@@ -67,24 +67,23 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     button: {
-            borderRadius: 8,
-            paddingVertical: 20,
-            backgroundColor: '#28537D',
-            marginHorizontal: 120,
-            marginBottom: 30,
-            borderBottomColor: '#1e3c5a',
-            borderBottomWidth: 5,
-            borderEndWidth: 5,
-            borderEndColor: '#1e3c5a',
-            borderBottomLeftRadius: 3,
+        borderRadius: 8,
+        paddingVertical: 20,
+        backgroundColor: '#258D93',
+        marginHorizontal: 30,
+        marginBottom: 30,
+        borderBottomColor: '#217D82',
+        borderBottomWidth: 5,
+        borderEndWidth: 5,
+        borderEndColor: '#217D82',
+        borderBottomLeftRadius: 3,
 
-        },
-        buttonText: {
-            color: 'white',
-            fontWeight: 'bold',
-            textTransform: "uppercase",
-            fontSize: 25,
-            textAlign: 'center',
-            fontFamily: 'press-2-start'
-        }
+    },
+    buttonText: {
+        color: 'white',
+        fontWeight: 'bold',
+        textTransform: "uppercase",
+        fontSize: 25,
+        textAlign: 'center',
+    }
 });

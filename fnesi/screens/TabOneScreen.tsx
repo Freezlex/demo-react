@@ -7,14 +7,12 @@ import {
   TouchableHighlight,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity, Image
 } from 'react-native';
 import { View } from '../components/Themed';
-import Background from "./Background";
 import { useNavigation } from '@react-navigation/native';
 import PlayButton from "../components/Buttons/PlayButton";
 import CreateGameButton from "../components/Buttons/CreateGame";
-import JoinGameButton from "../components/Buttons/JoinGameButton";
 import QuickGameButton from "../components/Buttons/QuickGameButton";
 import Burger from '../components/Burger';
 import {useState} from 'react';
@@ -39,7 +37,8 @@ export default function TabOneScreen() {
               (result) => {
                 console.log(result);
                 if (result.password === password) {
-                  navigation.navigate("Room" , {password: password, code : result.id , pseudo : pseudo})
+
+                  navigation.navigate("Room" , {password: password, code : result.id , pseudo : pseudo , response : result})
                 }
               }
           )
@@ -51,59 +50,62 @@ export default function TabOneScreen() {
       <SafeAreaView style={styles.container}>
         <View style={styles.view}>
           <Burger navigation/>
+          <View style={styles.image}>
+            <Image style={styles.logo} source={require("../assets/images/FNESI.png")}></Image>
+          </View>
           <PlayButton />
           <CreateGameButton />
-          <TouchableOpacity onPress={() => setModalVisible(true)} >
-            <View style={styles.button}>
+          <TouchableOpacity style={styles.joinButton} onPress={() => setModalVisible(true)} >
+            <View>
               <Text style={styles.buttonText}>Rejoindre une partie</Text>
             </View>
           </TouchableOpacity>
           <QuickGameButton />
 
         </View>
-          <Modal
-              animationType="slide"
-              transparent={true}
-              visible={modalVisible}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-              }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text>Votre Pseudo</Text>
-                <TextInput
-                    style={{height: 40}}
-                    placeholder="Pseudo"
-                    onChangeText={pseudo => setPseudo(pseudo)}
-                    defaultValue={pseudo}
-                />
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text>Votre Pseudo</Text>
+              <TextInput
+                  style={{height: 40}}
+                  placeholder="Pseudo"
+                  onChangeText={pseudo => setPseudo(pseudo)}
+                  defaultValue={pseudo}
+              />
 
-                <Text >Mot de passe</Text>
-                <TextInput
-                    style={{height: 40}}
-                    placeholder="Mot de passe"
-                    onChangeText={mdp => setMdp(mdp)}
-                    defaultValue={password}
-                />
-                <TouchableHighlight
-                    style={{ ...styles.button, backgroundColor: "#2196F3" }}
-                    onPress={() => { valide(pseudo , password , code);
-                    }}
-                >
-                  <Text>Valider</Text>
-                </TouchableHighlight>
-                <TouchableHighlight
-                    style={{ ...styles.button, backgroundColor: "#2196F3" }}
-                    onPress={() => {
-                      setModalVisible(!modalVisible);
-                    }}
-                >
-                  <Text>Hide Modal</Text>
-                </TouchableHighlight>
-              </View>
+              <Text >Mot de passe</Text>
+              <TextInput
+                  style={{height: 40}}
+                  placeholder="Mot de passe"
+                  onChangeText={mdp => setMdp(mdp)}
+                  defaultValue={password}
+              />
+              <TouchableHighlight
+                  style={{ ...styles.button}}
+                  onPress={() => { valide(pseudo , password , code);
+                  }}
+              >
+                <Text style={styles.buttonText}>Valider</Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                  style={{ ...styles.button}}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+              >
+                <Text style={styles.buttonText}>Retour</Text>
+              </TouchableHighlight>
             </View>
-          </Modal>
+          </View>
+        </Modal>
 
       </SafeAreaView>
 
@@ -150,22 +152,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 500,
-    backgroundColor: '#6F9FCE'
+    backgroundColor: '#2fb7bd'
   },
   view: {
     marginTop: 50,
     flex: 1,
   },
   button: {
+
+  },
+  joinButton: {
     borderRadius: 8,
     paddingVertical: 20,
-    backgroundColor: '#2464A4',
+    backgroundColor: '#1D6E72',
     marginHorizontal: 40,
     marginBottom: 30,
-    borderBottomColor: '#205183',
+    borderBottomColor: '#195E61',
     borderBottomWidth: 5,
     borderEndWidth: 5,
-    borderEndColor: '#205183',
+    borderEndColor: '#195E61',
     borderBottomLeftRadius: 3,
   },
   buttonText: {
@@ -174,7 +179,15 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontSize: 16,
     textAlign: 'center',
-    fontFamily: 'press-2-start',
+    backgroundColor: '#1D6E72',
+  },
+  image: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 150,
+    height: 150,
   }
 });
 

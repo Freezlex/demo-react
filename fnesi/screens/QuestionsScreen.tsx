@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
     FlatList,
     SafeAreaView,
@@ -80,38 +80,61 @@ const QuestionsScreen = () => {
     const topValue = useState(new Animated.Value(0)) [0]
     const { height, width } = Dimensions.get('window');
 
+    /*
 
-    function moveBlock() {
-        console.log(timerIsPlay)
-        setTimer(true);
+        function moveBlock() {
+            console.log(timerIsPlay)
+            setTimer(true);
 
-        Animated.timing(topValue,{
-            toValue: height,
-            duration: seconds * 1000,
-            useNativeDriver: false
-        }).start()
-    }
-
-
+            Animated.timing(topValue,{
+                toValue: height,
+                duration: seconds * 1000,
+                useNativeDrive false
+            }).start()
 
 
-    React.useEffect( () => {
-        console.log(timerIsPlay)
-
-        if (timerIsPlay) {
-            if (seconds > 0) {
-                setTimeout(() => setSeconds(seconds - 1), 1000);
-            } else {
-                // @ts-ignore
-                console.log('BOOOOM!');
-            }
         }
-    });
+    /*
+        useEffect(() => {
+            moveBlock();
+        }, [])
 
 
+        React.useEffect( () => {
+            console.log(timerIsPlay)
+
+            if (timerIsPlay) {
+                if (seconds > 0) {
+                    setTimeout(() => setSeconds(seconds - 1), 1000);
+                } else {
+
+
+                    setTimer(true);
+                }
+
+            }
+        });
+
+
+
+
+
+        React.useEffect( () => {
+            console.log(timerIsPlay)
+
+            if (timerIsPlay) {
+                if (seconds > 0) {
+                    setTimeout(() => setSeconds(seconds - 1), 1000);
+                } else {
+                    validate()
+                    console.log('BOOOOM!');
+                }
+            }
+        });
+    */
 
         const renderItem = ({item}) => {
-            moveBlock
+         //   moveBlock
 
         const backgroundColor = item.id === selectedId ? "#172f46" : "#295B8D";
 
@@ -142,22 +165,44 @@ const QuestionsScreen = () => {
     );
 
     function validate() {
+
         if (valid){
+
+            setSeconds(10);
             console.log("Bravo GG");
             addpoints(points +1);
-            enpause(true);
-            isValid(false)
+
+            isValid(false);
             setSelectedId(null)
+            if (modSansCorrection){
+                console.log('mode sans correction')
+                continuer()
+            }
+            else {
+                enpause(true);
+            }
         }
         else {
+
+            setSeconds(10);
             console.log('ahah la loose');
-            enpause(true);
+            if (modSansCorrection){
+                console.log('mode sans correction')
+                continuer()
+            }
+            else {
+                enpause(true);
+            }
             setSelectedId(null)
         }
     }
 
     function continuer() {
+
+
+
         if (question === 4) {
+
             nextQuestion(0);
             addpoints(0);
             enpause(false);
@@ -168,10 +213,18 @@ const QuestionsScreen = () => {
             nextQuestion(question + 1);
             enpause(false);
 
+            //     setTimer(false);
+            //     setSeconds(10);
+            //      Animated.timing(topValue,{
+            //          toValue: 0,
+            //          duration: 0,
+            //            useNativeDriver: false
+            //      }).start();
+         //   moveBlock();
         }
     }
     return (
-        <View style={styles.block} >
+        <View style={styles.view}>
 
 
             <SafeAreaView style={styles.container} >
@@ -232,7 +285,6 @@ const styles = StyleSheet.create({
     container: {
         paddingTop : 20,
         flex: 1,
-        backgroundColor: '#6F9FCE'
     },
     item: {
         backgroundColor: '#f9c2ff',
@@ -262,25 +314,25 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#295B8D',
+        backgroundColor: '#258D93',
         marginHorizontal: 40,
         marginBottom: 20,
-        borderBottomColor: '#274e75',
+        borderBottomColor: '#217D82',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#274e75',
+        borderEndColor: '#217D82',
         borderBottomLeftRadius: 3,
     },
     buttonNext: {
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#295b8d',
+        backgroundColor: '#1D6E72',
         marginHorizontal: "30%",
         marginBottom: 20,
-        borderBottomColor: '#274e75',
+        borderBottomColor: '#195E61',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#274e75',
+        borderEndColor: '#195E61',
         borderBottomLeftRadius: 3,
     },
     buttonText: {
@@ -289,7 +341,6 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 18,
         textAlign: 'center',
-        fontFamily: 'press-2-start',
     },
 
 });

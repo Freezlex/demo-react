@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {SafeAreaView, StyleSheet, TouchableOpacity , TextInput} from 'react-native';
+import {SafeAreaView, StyleSheet, TouchableOpacity, TextInput, FlatList} from 'react-native';
 import {Text, View} from '../components/Themed';
 import Chat from '../components/Chat';
 import {AntDesign, Ionicons} from '@expo/vector-icons';
@@ -15,56 +15,104 @@ export default function RoomScreen() {
     const buttonReady = 'Prêt    ';
     const buttonPlay = 'Jouer   ';
     const route = useRoute();
+    const {response} = route.params;
     const {password} = route.params;
     const {isHost} = route.params;
     const {code} = route.params;
     const {pseudo} = route.params;
-    const {modSansCorrection} = route.params
+    const {modSansCorrection} = route.params;
     const [pret, SetPret] = useState(false);
-    const [isSelected, setSelection] = useState(false);
     const [shouldShow, setShouldShow] = useState(false);
+    const [initialElements, changeEl] = useState([
+    ]);
+    const [value, onChangeText] = useState('');
+    const [data, setExampleState] = useState(initialElements);
+    const [idx, incr] = useState(2);
+    const [sub , setSub] = useState(false)
+
+    const url = "ws://localhost:8080/ws-fnesi/websocket";
+    let addElement: () => void;
+    addElement = () => {
+        let newArray = [...initialElements, {id: idx, text: value}];
+        incr(idx + 1);
+        console.log(initialElements.length);
+        setExampleState(newArray);
+        changeEl(newArray);
+        onChangeText('');
+
+
+        client.send(`/app/room/${code}/chat`, {}, JSON.stringify({
+            player: {
+                playerName: pseudo,
+                roomId: response.id
+            },
+            timestamp :Date.now(),
+            message: value
+        }))
+    };
+
     const player = {
         palyerName: pseudo,
         roomId: code
     };
-    console.log('player name' + player.palyerName, 'roomId' + code, 'code :' + code  , 'host' + isHost);
+    const [listJoueur , upDatePlayer] = useState([{playerName : '' }]);
 
-    const url = "ws://localhost:8080/ws-fnesi/websocket";
     const client = Stomp.client(url);
+    console.log(listJoueur);
+
     const connectCallback = function() {
-        console.log('Bonjour')
+        console.log('Connecté')
     };
     client.connect({},  connectCallback);
     const callback = function(message) {
         // called when the client receives a STOMP message from the server
         if (message.body) {
-            alert("got message with body " + message.body)
+            console.log(JSON.parse( message.body).players);
+
+            console.log(JSON.parse( message.body));
+            upDatePlayer(JSON.parse( message.body).players)
         } else {
             alert("got empty message");
         }
     };
-    function sub()
+
+    setTimeout(function subPlayer()
     {
-        client.send("/room/" + code + "/handle-players", { palyerName: pseudo,roomId: code})
         client.subscribe("/topic/room/" + code+ "/handle-players", callback);
+
+        if( !sub ){
+        client.send(`/app/room/${code}/handle-players`, {}, JSON.stringify({
+            player: {
+                playerName: pseudo,
+                roomId: response.id
+            },
+            room: response
+        }))
+            setSub(true)
+        }
+
+    }, 500);
+
+
+    function subChat() {
+        if (shouldShow) {
+            setShouldShow(!shouldShow)
+            client.subscribe("/topic/room/" + code + "/chat", callback);
+        }
+        else {
+            setShouldShow(!shouldShow)
+            client.unsubscribe("/topic/room/" + code + "/chat")
+        }
     }
-
-
-    //var sock = new SockJS("/topic/room/" + code +  "/handle-players");
-    //sock.onopen = function () {
-    //    console.log('open');
-    //    sock.send(player);
-    //};
-
     return (
 
         <View style={styles.container}>
             <Burger navigation={'Home'}/>
 
-            <Text style={styles.title}>{pseudo} 3</Text>
+            <Text style={styles.title}>{pseudo}</Text>
             <Text style={styles.code}>Code : {code}</Text>
 
-            <Text style={styles.code}>Mode  {modSansCorrection ? "sans corretion" : " avec correction"}</Text>
+            <Text style={styles.code}>Mode {modSansCorrection ? "sans corretion" : "avec correction"}</Text>
             <Text style={styles.code}>Mot de passe : {password}</Text>
             <Text style={styles.pseudo}>Theme choisi : </Text>
             <Text style={styles.pseudo}>Niveau choisi : </Text>
@@ -77,14 +125,39 @@ export default function RoomScreen() {
 
             </TouchableOpacity>
             <SafeAreaView  style={styles.pseudoContainer }>
-
+                <FlatList
+                    data={listJoueur}
+                    renderItem={({item}) => <Text style={styles.text}>{item.playerName}</Text>}
+                />
             </SafeAreaView >
-            <Ionicons style={styles.openbutton} onPress={sub } name="md-chatbox" size={50} color="black"/>
-
-            {/*Here we will return the view when state is true
-        and will return false if state is false*/}
+            <Ionicons style={styles.openbutton} onPress={() =>subChat() } name="md-chatbox" size={50} color="black"/>
             {shouldShow ? (
-                <Chat/>
+
+                <SafeAreaView style={styles.background}>
+                    <View style={{backgroundColor: '#2e6294'}}>
+                        <Text style={styles.text}>TCHAT</Text>
+                        <FlatList
+                            keyExtractor={item => item.id}
+                            data={data}
+                            renderItem={item => (<Text style={styles.title}>{item.item.text}</Text>)}/>
+                    </View>
+                    <View style={styles.viewChat}>
+                        <View style={styles.input}>
+
+                            <TextInput
+                                onChangeText={text => onChangeText(text)}
+                                value={value}
+                            />
+                        </View>
+
+                        <View style={styles.icon}>
+
+                            <AntDesign name="rightcircle" size={32} color="black"  onPress={addElement}/>
+
+                        </View>
+                    </View>
+
+                </SafeAreaView>
             ) : null}
 
 
@@ -168,7 +241,6 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 20,
         textAlign: 'center',
-        fontFamily:'press-2-start',
         marginLeft: 30,
     },
 

@@ -3,42 +3,13 @@ import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
 import { RootStackParamList } from '../../types';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import {useState} from 'react';
 
 
 export default function PrivateGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
     const navigation = useNavigation( );
-
-    const [password,setPassword] = useState('');
-    const [code,setCode] =useState('');
-    const [pseudo,setPseudo] = useState('Host')
-    const host = true
-
-
-    async function createRoom() {
-        fetch("http://localhost:8080/room/new?publicRoom=false")
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                setPassword(json.password);
-                setCode(json.id)
-                navigation.navigate("Param", {
-                    password: json.password,
-                    code: json.id,
-                    pseudo: pseudo,
-                    publicRoom: true,
-                    local: false,
-                })
-
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-
-
-    }
     return (
-        <TouchableOpacity onPress={() => createRoom()} >
+
+        <TouchableOpacity onPress={() =>   navigation.navigate("Param", {publicRoom : false})}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Priver</Text>
             </View>
@@ -52,13 +23,13 @@ const  styles = StyleSheet.create({
     button: {
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#2464A4',
+        backgroundColor: '#258D93',
         marginHorizontal: 40,
-        marginBottom: 30,
-        borderBottomColor: '#205183',
+        marginBottom: '10%',
+        borderBottomColor: '#217D82',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#205183',
+        borderEndColor: '#217D82',
         borderBottomLeftRadius: 3,
     },
     buttonText: {
@@ -67,6 +38,5 @@ const  styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
-        fontFamily: 'press-2-start',
     }
 });

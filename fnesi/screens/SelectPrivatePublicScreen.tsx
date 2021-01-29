@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
         height: 500,
-        backgroundColor: '#6F9FCE'
+        backgroundColor: '#2fb7bd'
   },
 view: {
     marginTop: 50,

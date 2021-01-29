@@ -10,18 +10,17 @@ export default function QuickGameButton(){
         </TouchableOpacity>
     )
 }
-
 const  styles = StyleSheet.create({
     button: {
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#1F69B2',
+        backgroundColor: '#195E61',
         marginHorizontal: 40,
         marginBottom: 30,
-        borderBottomColor: '#175694',
+        borderBottomColor: '#154E51',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#175694',
+        borderEndColor: '#154E51',
         borderBottomLeftRadius: 3,
 
     },
@@ -31,6 +30,5 @@ const  styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
-        fontFamily: 'press-2-start',
     }
 });

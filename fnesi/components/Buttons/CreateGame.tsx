@@ -16,17 +16,19 @@ export default function CreateGameButton ( { }: StackScreenProps<RootStackParamL
 }
 
 
+
+
 const  styles = StyleSheet.create({
     button: {
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#295B8D',
+        backgroundColor: '#217D82',
         marginHorizontal: 40,
         marginBottom: 30,
-        borderBottomColor: '#274e75',
+        borderBottomColor: '#1D6E72',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#274e75',
+        borderEndColor: '#1D6E72',
         borderBottomLeftRadius: 3,
     },
     buttonText: {
@@ -35,6 +37,5 @@ const  styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
-        fontFamily: 'press-2-start',
     }
 });

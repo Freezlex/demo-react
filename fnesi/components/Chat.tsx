@@ -22,6 +22,10 @@ export default function Chat() {
         onChangeText('');
     };
 
+    function f() {
+
+    }
+
     return (
 
         <SafeAreaView style={styles.background}>

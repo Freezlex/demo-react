@@ -9,34 +9,10 @@ import {useState} from 'react';
 export default function PublicGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
     const navigation = useNavigation( );
 
-    const [password,setPassword] = useState('');
-    const [code,setCode] =useState('');
-    const [pseudo,setPseudo] = useState('Host')
-
-    async function createRoom() {
-         fetch("http://localhost:8080/room/new?publicRoom=true")
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                setPassword(json.password);
-                setCode(json.id)
-                navigation.navigate("Param", {
-                    password: json.password,
-                    code: json.id,
-                    pseudo: pseudo,
-                    publicRoom: true,
-                    local: false,
-                })
-
-            })
-            .catch((error) => {
-                console.error(error);
-            });
 
 
-    }
     return (
-        <TouchableOpacity onPress={() => createRoom()} >
+        <TouchableOpacity onPress={() =>   navigation.navigate("Param", {publicRoom : true})}>
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Public</Text>
             </View>
@@ -50,13 +26,13 @@ const  styles = StyleSheet.create({
     button: {
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#2464A4',
+        backgroundColor: '#258D93',
         marginHorizontal: 40,
-        marginBottom: 30,
-        borderBottomColor: '#205183',
+        marginBottom: '10%',
+        borderBottomColor: '#217D82',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#205183',
+        borderEndColor: '#217D82',
         borderBottomLeftRadius: 3,
     },
     buttonText: {
@@ -65,6 +41,5 @@ const  styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
-        fontFamily: 'press-2-start',
     }
 });

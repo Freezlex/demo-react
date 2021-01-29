@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Modal, TouchableOpacity, Alert, StyleSheet, ScrollView, TextInput} from 'react-native';
+import {Modal, TouchableOpacity, Alert, StyleSheet, ScrollView, TextInput, Platform} from 'react-native';
 import {CheckBox} from 'react-native-elements'
 
 
@@ -12,10 +12,11 @@ export default function SelectParamScreen() {
     const route = useRoute();
     const{ local } = route.params;
     const{ publicRoom } = route.params;
-    const {pseudo} = route.params;
-    const {code } = route.params;
-    const {password } = route.params;
+    const url = ''
 
+    const [password,setPassword] = useState('');
+    const [code,setCode] =useState('');
+    const [pseudo,setPseudo] = useState('Host')
 
 
     const [selectedValueTheme, setSelectedValueTheme] = useState("Pas de thème selectionné");
@@ -43,6 +44,39 @@ export default function SelectParamScreen() {
     const [checkBoxTheme7, setcheckBoxTheme7] = useState(false);
 
 
+
+    async function createRoom() {
+
+        fetch("http://localhost:8080/room/new?publicRoom=true" ,
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "amount": 0,
+                    "level": 0,
+                    "publicRoom": publicRoom,
+                    "set": 0,
+                    "theme": [
+                        0
+                    ]
+                })})
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                setPassword(json.response.password);
+                setCode(json.response.id);
+                navigation.navigate("Room", {code:json.response.id,password:json.response.password,pseudo:pseudo,isHost:true ,modSansCorrection : modSansCorrection ,response : json.response})
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+
+    }
 
     const modalHeaderOne = (
         <View style={styles.modalHeader}>
@@ -290,7 +324,7 @@ export default function SelectParamScreen() {
                     setmodSansCorrection(!modSansCorrection);
                 }}/>
 
-            <TouchableOpacity onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection}) : navigation.navigate("Room", {code:code,password:password,pseudo:pseudo,isHost:true ,modSansCorrection : modSansCorrection})} >
+            <TouchableOpacity onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection}) : createRoom()} >
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>Jouer</Text>
                 </View>
@@ -356,7 +390,6 @@ const styles = StyleSheet.create({
     },
     modalFooter: {},
     actions: {
-        fontFamily: 'press-2-start',
         borderRadius: 5,
         marginHorizontal: 10,
         paddingVertical: 10,
@@ -365,17 +398,31 @@ const styles = StyleSheet.create({
     actionText: {
         color: "#fff"
     },
-    button: {
-        width :'90%',
+    configButton: {
+        width :'80%',
+        marginTop: 40,
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#2464A4',
-        marginHorizontal: 40,
+        backgroundColor: '#258D93',
         marginBottom: 30,
-        borderBottomColor: '#205183',
+        borderBottomColor: '#217D82',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#205183',
+        borderEndColor: '#217D82',
+        borderBottomLeftRadius: 3,
+    },
+
+    startButton: {
+        width :'70%',
+        marginTop: 40,
+        borderRadius: 8,
+        paddingVertical: 20,
+        backgroundColor: '#258D93',
+        marginBottom: 30,
+        borderBottomColor: '#217D82',
+        borderBottomWidth: 5,
+        borderEndWidth: 5,
+        borderEndColor: '#217D82',
         borderBottomLeftRadius: 3,
     },
     buttonText: {
@@ -384,6 +431,6 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
-        fontFamily: 'press-2-start',
+        backgroundColor: '#258D93',
     }
 });

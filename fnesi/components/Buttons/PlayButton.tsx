@@ -13,17 +13,19 @@ export default function PlayButton (){
     )
 }
 
+
+
 const  styles = StyleSheet.create({
     button: {
         borderRadius: 8,
         paddingVertical: 30,
-        backgroundColor: '#28537D',
+        backgroundColor: '#258D93',
         marginHorizontal: 20,
         marginBottom: 30,
-        borderBottomColor: '#1e3c5a',
+        borderBottomColor: '#217D82',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#1e3c5a',
+        borderEndColor: '#217D82',
         borderBottomLeftRadius: 3,
 
     },
@@ -33,7 +35,5 @@ const  styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 25,
         textAlign: 'center',
-        fontFamily: 'press-2-start',
     }
 });
-
