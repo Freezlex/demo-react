@@ -7,8 +7,8 @@ import { useNavigation } from '@react-navigation/native';
 export default function JoinGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
     const navigation = useNavigation( );
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('Room')} >
-            <View style={styles.button}>
+        <TouchableOpacity onPress={() => navigation.navigate('GameMenu')} >
+            <View style={styles.joinButton}>
                 <Text style={styles.buttonText}>Rejoindre une partie</Text>
             </View>
         </TouchableOpacity>
@@ -19,16 +19,16 @@ export default function JoinGameButton ( { }: StackScreenProps<RootStackParamLis
 
 
 const  styles = StyleSheet.create({
-    button: {
+    joinButton: {
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#299DA3',
+        backgroundColor: '#1D6E72',
         marginHorizontal: 40,
         marginBottom: 30,
-        borderBottomColor: '#258D93',
+        borderBottomColor: '#195E61',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#258D93',
+        borderEndColor: '#195E61',
         borderBottomLeftRadius: 3,
     },
     buttonText: {

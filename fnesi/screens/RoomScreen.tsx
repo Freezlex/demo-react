@@ -110,7 +110,6 @@ export default function RoomScreen() {
             <Burger navigation={'Home'}/>
 
             <Text style={styles.title}>{pseudo}</Text>
-            <Text style={styles.code}>Code : {code}</Text>
 
             <Text style={styles.code}>Mode {modSansCorrection ? "sans corretion" : "avec correction"}</Text>
             <Text style={styles.code}>Mot de passe : {password}</Text>

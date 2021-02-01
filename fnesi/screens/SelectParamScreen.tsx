@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react';
 import {Modal, TouchableOpacity, Alert, StyleSheet, ScrollView, TextInput, Platform} from 'react-native';
 import {CheckBox} from 'react-native-elements'
+import url from '../env/variableUrl'
 
 
 import { Text, View } from '../components/Themed';
@@ -12,42 +13,40 @@ export default function SelectParamScreen() {
     const route = useRoute();
     const{ local } = route.params;
     const{ publicRoom } = route.params;
-    const url = ''
 
     const [password,setPassword] = useState('');
     const [code,setCode] =useState('');
     const [pseudo,setPseudo] = useState('Host')
 
 
-    const [selectedValueTheme, setSelectedValueTheme] = useState("Pas de thème selectionné");
-    const [selectedValueLevel, setSelectedValueLevel] = useState("Pas de level selectionné");
+    const [selectedValueUE, setSelectedValueUE] = useState("Pas de thème selectionné");
+    const [selectedValueSemestre, setSelectedValueSemestre] = useState("Pas de level selectionné");
 
     const [modalVisibleOne, setModalVisibleOne] = useState(false);
 
     const [modalVisibleTwo, setModalVisibleTwo] = useState(false);
 
     const [modSansCorrection, setmodSansCorrection] = useState(false);
-    const [checkBoxLevel1, setcheckBoxLevel1] = useState(false);
-    const [checkBoxLevel2, setcheckBoxLevel2] = useState(false);
-    const [checkBoxLevel3, setcheckBoxLevel3] = useState(false);
-    const [checkBoxLevel4, setcheckBoxLevel4] = useState(false);
-    const [checkBoxLevel5, setcheckBoxLevel5] = useState(false);
-    const [checkBoxLevel6, setcheckBoxLevel6] = useState(false);
-    const [checkBoxLevel7, setcheckBoxLevel7] = useState(false);
+    const [checkBoxSemestre1, setcheckBoxSemestre1] = useState(false);
+    const [checkBoxSemestre2, setcheckBoxSemestre2] = useState(false);
+    const [checkBoxSemestre3, setcheckBoxSemestre3] = useState(false);
+    const [checkBoxSemestre4, setcheckBoxSemestre4] = useState(false);
+    const [checkBoxSemestre5, setcheckBoxSemestre5] = useState(false);
+    const [checkBoxSemestre6, setcheckBoxSemestre6] = useState(false);
 
-    const [checkBoxTheme1, setcheckBoxTheme1] = useState(false);
-    const [checkBoxTheme2, setcheckBoxTheme2] = useState(false);
-    const [checkBoxTheme3, setcheckBoxTheme3] = useState(false);
-    const [checkBoxTheme4, setcheckBoxTheme4] = useState(false);
-    const [checkBoxTheme5, setcheckBoxTheme5] = useState(false);
-    const [checkBoxTheme6, setcheckBoxTheme6] = useState(false);
-    const [checkBoxTheme7, setcheckBoxTheme7] = useState(false);
+    const [checkBoxUE1, setcheckBoxUE1] = useState(false);
+    const [checkBoxUE2, setcheckBoxUE2] = useState(false);
+    const [checkBoxUE3, setcheckBoxUE3] = useState(false);
+    const [checkBoxUE4, setcheckBoxUE4] = useState(false);
+    const [checkBoxUE5, setcheckBoxUE5] = useState(false);
+    const [checkBoxUE6, setcheckBoxUE6] = useState(false);
+    const [checkBoxUE7, setcheckBoxUE7] = useState(false);
 
 
 
     async function createRoom() {
 
-        fetch("http://localhost:8080/room/new?publicRoom=true" ,
+        fetch("http://"+ url + ":8080/room/new?publicRoom=true",
             {
                 method: 'POST',
                 headers: {
@@ -94,46 +93,46 @@ export default function SelectParamScreen() {
         <ScrollView style={styles.scrollView}>
             <View style={styles.modalBody}>
                 <CheckBox
-                    title='Thème 1'
-                    checked={checkBoxTheme1}
+                    title='UE 1'
+                    checked={checkBoxUE1}
                     onPress={() => {
-                        setcheckBoxTheme1(!checkBoxTheme1);
+                        setcheckBoxUE1(!checkBoxUE1);
                     }}/>
                 <CheckBox
-                    title='Thème 2'
-                    checked={checkBoxTheme2}
+                    title='UE 2'
+                    checked={checkBoxUE2}
                     onPress={() => {
-                        setcheckBoxTheme2(!checkBoxTheme2);
+                        setcheckBoxUE2(!checkBoxUE2);
                     }}/>
                 <CheckBox
-                    title='Thème 3'
-                    checked={checkBoxTheme3}
+                    title='UE 3'
+                    checked={checkBoxUE3}
                     onPress={() => {
-                        setcheckBoxTheme3(!checkBoxTheme3);
+                        setcheckBoxUE3(!checkBoxUE3);
                     }}/>
                 <CheckBox
-                    title='Thème 4'
-                    checked={checkBoxTheme4}
+                    title='UE 4'
+                    checked={checkBoxUE4}
                     onPress={() => {
-                        setcheckBoxTheme4(!checkBoxTheme4);
+                        setcheckBoxUE4(!checkBoxUE4);
                     }}/>
                 <CheckBox
-                    title='Thème 5'
-                    checked={checkBoxTheme5}
+                    title='UE 5'
+                    checked={checkBoxUE5}
                     onPress={() => {
-                        setcheckBoxTheme5(!checkBoxTheme5);
+                        setcheckBoxUE5(!checkBoxUE5);
                     }}/>
                 <CheckBox
-                    title='Thème 6'
-                    checked={checkBoxTheme6}
+                    title='UE 6'
+                    checked={checkBoxUE6}
                     onPress={() => {
-                        setcheckBoxTheme6(!checkBoxTheme6);
+                        setcheckBoxUE6(!checkBoxUE6);
                     }}/>
                 <CheckBox
-                    title='Thème 7'
-                    checked={checkBoxTheme7}
+                    title='UE 7'
+                    checked={checkBoxUE7}
                     onPress={() => {
-                        setcheckBoxTheme7(!checkBoxTheme7);
+                        setcheckBoxUE7(!checkBoxUE7);
                     }}/>
 
 
@@ -141,61 +140,56 @@ export default function SelectParamScreen() {
         </ScrollView>
     )
 
-    console.log(selectedValueTheme)
+    console.log(selectedValueUE)
 
     const modalBodyTwo = (
         <ScrollView style={styles.scrollView}>
             <View style={styles.modalBody}>
                 <CheckBox
-                    title='Level 1'
-                    value={checkBoxLevel1}
-                    checked={checkBoxLevel1}
+                    title='Semestre 1'
+                    value={checkBoxSemestre1}
+                    checked={checkBoxSemestre1}
                     onPress={() => {
-                        setcheckBoxLevel1(!checkBoxLevel1);
+                        setcheckBoxSemestre1(!checkBoxSemestre1);
                     }}/>
                 <CheckBox
-                    title='Level 2'
-                    checked={checkBoxLevel2}
+                    title='Semestre 2'
+                    checked={checkBoxSemestre2}
                     onPress={() => {
-                        setcheckBoxLevel2(!checkBoxLevel2);
+                        setcheckBoxSemestre2(!checkBoxSemestre2);
                     }}/>
                 <CheckBox
-                    title='Level 3'
-                    checked={checkBoxLevel3}
+                    title='Semestre 3'
+                    checked={checkBoxSemestre3}
                     onPress={() => {
-                        setcheckBoxLevel3(!checkBoxLevel3);
+                        setcheckBoxSemestre3(!checkBoxSemestre3);
                     }}/>
                 <CheckBox
-                    title='Level 4'
-                    checked={checkBoxLevel4}
+                    title='Semestre 4'
+                    checked={checkBoxSemestre4}
                     onPress={() => {
-                        setcheckBoxLevel4(!checkBoxLevel4);
+                        setcheckBoxSemestre4(!checkBoxSemestre4);
                     }}/>
                 <CheckBox
-                    title='Level 5'
-                    checked={checkBoxLevel5}
+                    title='Semestre 5'
+                    checked={checkBoxSemestre5}
                     onPress={() => {
-                        setcheckBoxLevel5(!checkBoxLevel5);
+                        setcheckBoxSemestre5(!checkBoxSemestre5);
                     }}/>
                 <CheckBox
-                    title='Level 6'
-                    checked={checkBoxLevel6}
+                    title='Semestre 6'
+                    checked={checkBoxSemestre6}
                     onPress={() => {
-                        setcheckBoxLevel6(!checkBoxLevel6);
+                        setcheckBoxSemestre6(!checkBoxSemestre6);
                     }}/>
-                <CheckBox
-                    title='Level 7'
-                    checked={checkBoxLevel7}
-                    onPress={() => {
-                        setcheckBoxLevel7(!checkBoxLevel7);
-                    }}/>
+
 
 
             </View>
         </ScrollView>
     )
 
-    console.log(selectedValueLevel);
+    console.log(selectedValueSemestre);
     const modalFooterOne = (
         <View style={styles.modalFooter}>
             <View style={styles.divider}></View>
@@ -291,28 +285,27 @@ export default function SelectParamScreen() {
                 <Text style={styles.buttonText}> Configurer la partie</Text>
             </TouchableOpacity>
             <Text style={styles.Selection}>
-                Thème(s) choisis :
+                UE(s) choisis :
             </Text>
             <Text style={styles.ValueCheckBox}>
-                {checkBoxTheme1 ? "Thème 1 " : ""}
-                {checkBoxTheme2 ? "Thème 2 " : ""}
-                {checkBoxTheme3 ? "Thème 3 " : ""}
-                {checkBoxTheme4 ? "Thème 4 " : ""}
-                {checkBoxTheme5 ? "Thème 5 " : ""}
-                {checkBoxTheme6 ? "Thème 6 " : ""}
-                {checkBoxTheme7 ? "Thème 7 " : ""}
+                {checkBoxUE1 ? "UE 1 " : ""}
+                {checkBoxUE2 ? "UE 2 " : ""}
+                {checkBoxUE3 ? "UE 3 " : ""}
+                {checkBoxUE4 ? "UE 4 " : ""}
+                {checkBoxUE5 ? "UE 5 " : ""}
+                {checkBoxUE6 ? "UE 6 " : ""}
+                {checkBoxUE7 ? "UE 7 " : ""}
             </Text>
             <Text style={styles.Selection}>
-                Level(s) choisis :
+                Semestre(s) choisis :
             </Text>
             <Text style={styles.ValueCheckBox}>
-                {checkBoxLevel1 ? "Level 1 " : ""}
-                {checkBoxLevel2 ? "Level 2 " : ""}
-                {checkBoxLevel3 ? "Level 3 " : ""}
-                {checkBoxLevel4 ? "Level 4 " : ""}
-                {checkBoxLevel5 ? "Level 5 " : ""}
-                {checkBoxLevel6 ? "Level 6 " : ""}
-                {checkBoxLevel7 ? "Level 7 " : ""}
+                {checkBoxSemestre1 ? "Semestre 1 " : ""}
+                {checkBoxSemestre2 ? "Semestre 2 " : ""}
+                {checkBoxSemestre3 ? "Semestre 3 " : ""}
+                {checkBoxSemestre4 ? "Semestre 4 " : ""}
+                {checkBoxSemestre5 ? "Semestre 5 " : ""}
+                {checkBoxSemestre6 ? "Semestre 6 " : ""}
             </Text>
             <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 

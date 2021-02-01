@@ -15,6 +15,7 @@ import QuestionsScreen from './screens/QuestionsScreen';
 import Classement from './screens/Classement';
 import ProfileScreen from './screens/ProfileScreen';
 import SupportScreen from './screens/SupportScreen';
+import JoinsGameMenu from './screens/JoinsGameMenu';
 
 const Drawer = createDrawerNavigator();
 
@@ -39,8 +40,10 @@ export default function App() {
                 <Drawer.Screen name="Classement" component={Classement} />
               <Drawer.Screen name="Support" component={SupportScreen} />
               <Drawer.Screen name="Profile" component={ProfileScreen} />
+              <Drawer.Screen name="GameMenu" component={JoinsGameMenu} />
 
-                {/* Pour ajouter un écran cible dans le menu :
+
+              {/* Pour ajouter un écran cible dans le menu :
             <Drawer.Screen name="Nom à afficher" component={Screen à ajouter} /> */}
             </Drawer.Navigator>
           </NavigationContainer>

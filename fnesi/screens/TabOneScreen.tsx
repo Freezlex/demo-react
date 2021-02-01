@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   Text,
   TextInput,
-  TouchableOpacity, Image
+  TouchableOpacity, Image, Platform
 } from 'react-native';
 import { View } from '../components/Themed';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +16,8 @@ import CreateGameButton from "../components/Buttons/CreateGame";
 import QuickGameButton from "../components/Buttons/QuickGameButton";
 import Burger from '../components/Burger';
 import {useState} from 'react';
+import url from '../env/variableUrl';
+import JoinGameButton from '../components/Buttons/JoinGameButton';
 
 
 export default function TabOneScreen() {
@@ -27,11 +29,10 @@ export default function TabOneScreen() {
 
   function valide(pseudo , password , code) {
     if (pseudo === ''|| password === '' ) {
-      console.log('pas valide')
       console.log(pseudo , password , code)
     } else {
 
-      fetch("http://localhost:8080/room/join/" + password)
+      fetch("http://"+ url + ":8080/room/join/" + password)
           .then(res => res.json())
           .then(
               (result) => {
@@ -55,57 +56,12 @@ export default function TabOneScreen() {
           </View>
           <PlayButton />
           <CreateGameButton />
-          <TouchableOpacity style={styles.joinButton} onPress={() => setModalVisible(true)} >
-            <View>
-              <Text style={styles.buttonText}>Rejoindre une partie</Text>
-            </View>
-          </TouchableOpacity>
+
+          <JoinGameButton/>
+
           <QuickGameButton />
 
         </View>
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text>Votre Pseudo</Text>
-              <TextInput
-                  style={{height: 40}}
-                  placeholder="Pseudo"
-                  onChangeText={pseudo => setPseudo(pseudo)}
-                  defaultValue={pseudo}
-              />
-
-              <Text >Mot de passe</Text>
-              <TextInput
-                  style={{height: 40}}
-                  placeholder="Mot de passe"
-                  onChangeText={mdp => setMdp(mdp)}
-                  defaultValue={password}
-              />
-              <TouchableHighlight
-                  style={{ ...styles.button}}
-                  onPress={() => { valide(pseudo , password , code);
-                  }}
-              >
-                <Text style={styles.buttonText}>Valider</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                  style={{ ...styles.button}}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                  }}
-              >
-                <Text style={styles.buttonText}>Retour</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
 
       </SafeAreaView>
 
