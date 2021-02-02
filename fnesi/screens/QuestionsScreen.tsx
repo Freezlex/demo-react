@@ -80,47 +80,30 @@ const QuestionsScreen = () => {
     const topValue = useState(new Animated.Value(0)) [0]
     const { height, width } = Dimensions.get('window');
 
-    /*
 
         function moveBlock() {
             console.log(timerIsPlay)
             setTimer(true);
 
             Animated.timing(topValue,{
+                useNativeDriver: false,
                 toValue: height,
-                duration: seconds * 1000,
-                useNativeDrive false
+                duration: seconds * 1000
             }).start()
 
 
         }
-    /*
         useEffect(() => {
             moveBlock();
         }, [])
 
 
-        React.useEffect( () => {
-            console.log(timerIsPlay)
-
-            if (timerIsPlay) {
-                if (seconds > 0) {
-                    setTimeout(() => setSeconds(seconds - 1), 1000);
-                } else {
-
-
-                    setTimer(true);
-                }
-
-            }
-        });
-
 
 
 
 
         React.useEffect( () => {
-            console.log(timerIsPlay)
+            console.log(timerIsPlay);
 
             if (timerIsPlay) {
                 if (seconds > 0) {
@@ -131,7 +114,7 @@ const QuestionsScreen = () => {
                 }
             }
         });
-    */
+
 
         const renderItem = ({item}) => {
          //   moveBlock
@@ -166,15 +149,17 @@ const QuestionsScreen = () => {
 
     function validate() {
 
+        setTimer(false)
         if (valid){
 
-            setSeconds(10);
             console.log("Bravo GG");
             addpoints(points +1);
 
             isValid(false);
             setSelectedId(null)
             if (modSansCorrection){
+
+                setTimer(false)
                 console.log('mode sans correction')
                 continuer()
             }
@@ -184,7 +169,6 @@ const QuestionsScreen = () => {
         }
         else {
 
-            setSeconds(10);
             console.log('ahah la loose');
             if (modSansCorrection){
                 console.log('mode sans correction')
@@ -203,6 +187,9 @@ const QuestionsScreen = () => {
 
         if (question === 4) {
 
+            setSeconds(0);
+            setSeconds(10);
+            setTimer(false);
             nextQuestion(0);
             addpoints(0);
             enpause(false);
@@ -210,17 +197,12 @@ const QuestionsScreen = () => {
                     points: points})}
 
         else {
+            setTimer(true);
+            setSeconds(0);
+            setSeconds(10);
             nextQuestion(question + 1);
             enpause(false);
 
-            //     setTimer(false);
-            //     setSeconds(10);
-            //      Animated.timing(topValue,{
-            //          toValue: 0,
-            //          duration: 0,
-            //            useNativeDriver: false
-            //      }).start();
-         //   moveBlock();
         }
     }
     return (
