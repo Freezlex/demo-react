@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function CreateGameButton ( { }: StackScreenProps<RootStackParamList, 'NotFound'>){
     const navigation = useNavigation( );
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('P/P')} >
+        <TouchableOpacity onPress={() => navigation.navigate('P/P' , {local:false})} >
             <View style={styles.button}>
                 <Text style={styles.buttonText}>Creer une partie</Text>
             </View>
