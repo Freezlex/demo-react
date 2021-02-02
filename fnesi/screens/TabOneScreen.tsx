@@ -1,51 +1,59 @@
 import * as React from 'react';
 import {
-  Alert,
-  Modal,
   SafeAreaView,
   StyleSheet,
-  TouchableHighlight,
-  Text,
-  TextInput,
-  TouchableOpacity, Image, Platform
+  Image, TouchableOpacity, Text
 } from 'react-native';
 import { View } from '../components/Themed';
-import { useNavigation } from '@react-navigation/native';
 import PlayButton from "../components/Buttons/PlayButton";
 import CreateGameButton from "../components/Buttons/CreateGame";
 import QuickGameButton from "../components/Buttons/QuickGameButton";
 import Burger from '../components/Burger';
-import {useState} from 'react';
-import url from '../env/variableUrl';
 import JoinGameButton from '../components/Buttons/JoinGameButton';
+import url from '../env/variableUrl';
+import {useState} from 'react';
 
 
 export default function TabOneScreen() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [pseudo, setPseudo] = useState('');
-  const [code, setCode] = useState('');
-  const [password, setMdp] = useState('');
-  const navigation = useNavigation( );
+  const [connected , SetConnected] = useState(false)
 
-  function valide(pseudo , password , code) {
-    if (pseudo === ''|| password === '' ) {
-      console.log(pseudo , password , code)
-    } else {
+  fetch("http://"+ url + ":8080")
+      .then(res =>{
+  if (res.status === 200) {
+    console.log('serveur OK');
+    SetConnected(true)
+  }})
+      .catch(e =>{ SetConnected(false); alert('vous n\'êtes pas connecté' )});
 
-      fetch("http://"+ url + ":8080/room/join/" + password)
-          .then(res => res.json())
-          .then(
-              (result) => {
-                console.log(result);
-                if (result.password === password) {
 
-                  navigation.navigate("Room" , {password: password, code : result.id , pseudo : pseudo , response : result})
-                }
-              }
-          )
-    }
-  }
+    const ButtonConected = () => (
+        <View>
+          <CreateGameButton/>
 
+          <JoinGameButton/>
+
+          <QuickGameButton/>
+        </View>
+    );
+    const ButtonDisConected = () => (
+        <View>
+          <TouchableOpacity onPress={() => alert('vous n\'êtes pas connecté')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Creer une partie</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => alert('vous n\'êtes pas connecté')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Rejoindre une partie</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => alert('vous n\'êtes pas connecté ou les serveurs sont en maintenance')}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Partie rapide</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+    );
   return (
 
       <SafeAreaView style={styles.container}>
@@ -55,12 +63,10 @@ export default function TabOneScreen() {
             <Image style={styles.logo} source={require("../assets/images/FNESI.png")}></Image>
           </View>
           <PlayButton />
-          <CreateGameButton />
-
-          <JoinGameButton/>
-
-          <QuickGameButton />
-
+          <View>
+            {
+              connected ?  <ButtonConected/> : <ButtonDisConected/>
+            }</View>
         </View>
 
       </SafeAreaView>
@@ -115,7 +121,23 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-
+    borderRadius: 8,
+    paddingVertical: 20,
+    backgroundColor: '#373737',
+    marginHorizontal: 40,
+    marginBottom: 30,
+    borderBottomColor: '#092023',
+    borderBottomWidth: 5,
+    borderEndWidth: 5,
+    borderEndColor: '#090909',
+    borderBottomLeftRadius: 3,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textTransform: "uppercase",
+    fontSize: 16,
+    textAlign: 'center',
   },
   joinButton: {
     borderRadius: 8,
@@ -128,14 +150,6 @@ const styles = StyleSheet.create({
     borderEndWidth: 5,
     borderEndColor: '#195E61',
     borderBottomLeftRadius: 3,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textTransform: "uppercase",
-    fontSize: 16,
-    textAlign: 'center',
-    backgroundColor: '#1D6E72',
   },
   image: {
     justifyContent: 'center',

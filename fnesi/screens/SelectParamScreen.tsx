@@ -79,13 +79,13 @@ export default function SelectParamScreen() {
 
     const modalHeaderOne = (
         <View style={styles.modalHeader}>
-            <Text style={styles.title}>Choisissez le(s) thème(s) de la partie</Text>
+            <Text style={styles.title}>Choisissez le(s) UE(s) de la partie</Text>
             <View style={styles.divider}></View>
         </View>
     )
     const modalHeaderTwo = (
         <View style={styles.modalHeader}>
-            <Text style={styles.title}>Choisissez le(s) level(s) de la partie</Text>
+            <Text style={styles.title}>Choisissez le(s) Semestre(s) de la partie</Text>
             <View style={styles.divider}></View>
         </View>
     )

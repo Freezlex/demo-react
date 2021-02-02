@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
     FlatList,
     SafeAreaView,
-    StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
@@ -11,57 +10,11 @@ import {
     Dimensions
 } from 'react-native';
 import {useNavigation, useRoute} from '@react-navigation/native';
-
-const DATA = [
-    {
-        question: "Que signifie le terme : asthénie ?",
-        answers: [
-            { id: "1", text: "Rotule"   },
-            { id: "2", text: "Saignement du nez"  },
-            { id: "3", text: "Saignement de l'oreille"  },
-            { id: "4", text: "Fatigue", correct: true }
-        ]
-    },
-    {
-        question: "Que signifie le préfixe : brady?",
-        answers: [
-            { id: "1", text: "En dehors"  },
-            { id: "2", text: "Lent" , correct: true },
-            { id: "3", text: "A l'intérieur"},
-            { id: "4", text: "Autour "}
-        ]
-    },
-    {
-        question: "Que signifie le préfixe : hypo?",
-        answers: [
-            { id: "1", text: " Au dessous, diminution" , correct: true},
-            { id: "2", text: "Auprès de, contre, à travers, voisin"  },
-            { id: "3", text: "Beaucoup, plusieurs"   },
-            { id: "4", text: "Rapide" }
-        ]
-    },
-    {
-        question: "Que signifie le terme : cyanosé  ?",
-        answers: [
-            { id: "1", text: "Peur de l'eau"  },
-            { id: "2", text: "Coloration bleutée de la peau et des ongles" , correct: true  },
-            { id: "3", text: "Se parler à soi-même" },
-            { id: "4", text: "Ralentissement psychopathologique du cours de la pensée" }
-        ]
-    },
-    {
-        question: "Que signifie le terme : pyrogène ?",
-        answers: [
-            { id: "1", text: "Ablation / Enlever"},
-            { id: "2", text: "Ecoulement"  },
-            { id: "3", text: "Qui provoque de la fièvre",correct: true  },
-            { id: "4", text: "Diminution de la quantité de thrombocytes" }
-        ]
-    },
-];
+import QuestionLocal from '../assets/data/QuestionLocal'
 
 
 
+const DATA = QuestionLocal();
 
 
 const QuestionsScreen = () => {
@@ -73,51 +26,18 @@ const QuestionsScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const {modSansCorrection} = route.params;
-    const [timerIsPlay, setTimer] = React.useState(false);
+    const [timerIsPlay, setTimer] = React.useState(true);
     const [seconds, setSeconds] = React.useState(10);
+    const [isActive, setIsActive] = useState(true);
 
 
     const topValue = useState(new Animated.Value(0)) [0]
     const { height, width } = Dimensions.get('window');
 
 
-        function moveBlock() {
-            console.log(timerIsPlay)
-            setTimer(true);
-
-            Animated.timing(topValue,{
-                useNativeDriver: false,
-                toValue: height,
-                duration: seconds * 1000
-            }).start()
 
 
-        }
-        useEffect(() => {
-            moveBlock();
-        }, [])
-
-
-
-
-
-
-        React.useEffect( () => {
-            console.log(timerIsPlay);
-
-            if (timerIsPlay) {
-                if (seconds > 0) {
-                    setTimeout(() => setSeconds(seconds - 1), 1000);
-                } else {
-                    validate()
-                    console.log('BOOOOM!');
-                }
-            }
-        });
-
-
-        const renderItem = ({item}) => {
-         //   moveBlock
+    const renderItem = ({item}) => {
 
         const backgroundColor = item.id === selectedId ? "#172f46" : "#295B8D";
 
@@ -147,21 +67,65 @@ const QuestionsScreen = () => {
         </TouchableOpacity>
     );
 
+    function toggle() {
+        setIsActive(!isActive);
+    }
+
+    function reset() {
+        setSeconds(10);
+        setIsActive(false);
+    }
+    useEffect(() => {
+        let interval = null;
+        if (isActive) {
+            interval = setInterval(() => {
+                setSeconds(seconds => seconds - 1);
+            }, 1000);
+        } else if (!isActive && seconds !== 0) {
+            clearInterval(interval);
+        }
+
+        if (seconds === 0 ){
+            console.log('Perdu')
+            reset()
+            setIsActive(!isActive);
+            validate()
+        }
+        return () => clearInterval(interval);
+    }, [isActive, seconds]);
+
+    function restartAnimation(){
+
+        Animated.timing(topValue,{
+            useNativeDriver: false,
+            toValue: height,
+            duration: 10000
+        }).start()
+
+    }
+
+    function startAnimation() {
+        Animated.timing(topValue,{
+            useNativeDriver: false,
+            toValue: 0,
+            duration: 0
+        }).start()
+    }
+
     function validate() {
 
-        setTimer(false)
+        setIsActive(!isActive)
         if (valid){
 
             console.log("Bravo GG");
             addpoints(points +1);
-
             isValid(false);
             setSelectedId(null)
             if (modSansCorrection){
 
-                setTimer(false)
+                setIsActive(!isActive)
                 console.log('mode sans correction')
-                continuer()
+             continuer()
             }
             else {
                 enpause(true);
@@ -172,7 +136,9 @@ const QuestionsScreen = () => {
             console.log('ahah la loose');
             if (modSansCorrection){
                 console.log('mode sans correction')
-                continuer()
+
+                setIsActive(!isActive)
+              continuer()
             }
             else {
                 enpause(true);
@@ -181,25 +147,22 @@ const QuestionsScreen = () => {
         }
     }
 
+
+
+
     function continuer() {
-
-
-
+        reset()
+        setIsActive(true)
         if (question === 4) {
 
-            setSeconds(0);
-            setSeconds(10);
-            setTimer(false);
             nextQuestion(0);
             addpoints(0);
             enpause(false);
-                navigation.navigate('Classement', {
-                    points: points})}
+            reset()
+            navigation.navigate('Classement', {
+                points: points}) }
 
         else {
-            setTimer(true);
-            setSeconds(0);
-            setSeconds(10);
             nextQuestion(question + 1);
             enpause(false);
 
@@ -219,6 +182,7 @@ const QuestionsScreen = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>{seconds}</Text>
+
                 <Animated.View style={[{
                     width:'100%',
                     height: height,
@@ -226,6 +190,7 @@ const QuestionsScreen = () => {
                     position: 'absolute',
                     backgroundColor: '#2fb7bd'},] }>
                 </Animated.View>
+
 
                 <View style={{
 
