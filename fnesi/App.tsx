@@ -16,6 +16,7 @@ import Classement from './screens/Classement';
 import ProfileScreen from './screens/ProfileScreen';
 import SupportScreen from './screens/SupportScreen';
 import JoinsGameMenu from './screens/JoinsGameMenu';
+import Pub from './screens/Pub';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,7 +31,7 @@ export default function App() {
         <SafeAreaProvider>
           <NavigationContainer>
             <Drawer.Navigator drawerStyle={{backgroundColor: '#a6c5ff'}}
-                              initialRouteName="Home">
+                              initialRouteName="Pub">
 
               <Drawer.Screen name="Home" component={TabOneScreen} />
               <Drawer.Screen name="Param" component={SelectParamScreen}  />
@@ -41,6 +42,7 @@ export default function App() {
               <Drawer.Screen name="Support" component={SupportScreen} />
               <Drawer.Screen name="Profile" component={ProfileScreen} />
               <Drawer.Screen name="GameMenu" component={JoinsGameMenu} />
+              <Drawer.Screen name="Pub" component={Pub} />
 
 
               {/* Pour ajouter un écran cible dans le menu :
