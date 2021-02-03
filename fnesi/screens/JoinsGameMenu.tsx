@@ -49,7 +49,7 @@ export default function JoinsGameMenu ( { }: StackScreenProps<RootStackParamList
                         console.log(result);
                         if (result.password === password) {
 
-                            navigation.navigate("Room" , {password: password, code : result.id , pseudo : pseudo , response : result})
+                            navigation.navigate("Room" , {password: password, code : result.id , pseudo : pseudo , response : result , isHost : false})
                         }
                     }
                 )

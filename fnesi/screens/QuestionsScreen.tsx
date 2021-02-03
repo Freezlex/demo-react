@@ -26,7 +26,7 @@ const QuestionsScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const {modSansCorrection} = route.params;
-    const [timerIsPlay, setTimer] = React.useState(true);
+    const {local} = route.params
     const [seconds, setSeconds] = React.useState(10);
     const [isActive, setIsActive] = useState(true);
 
