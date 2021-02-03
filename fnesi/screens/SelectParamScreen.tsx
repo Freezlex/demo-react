@@ -85,7 +85,7 @@ export default function SelectParamScreen() {
     )
     const modalHeaderTwo = (
         <View style={styles.modalHeader}>
-            <Text style={styles.title}>Choisissez le(s) Semestre(s) de la partie</Text>
+            <Text style={styles.title}>Choisissez le(s) semestre(s) de la partie</Text>
             <View style={styles.divider}></View>
         </View>
     )
@@ -278,10 +278,10 @@ export default function SelectParamScreen() {
 
             {modalOne}
             {modalTwo}
-            <TouchableOpacity style={styles.button}
-                onPress={() => {
-                    setModalVisibleOne(true);
-                }}>
+            <TouchableOpacity style={styles.configButton}
+                              onPress={() => {
+                                  setModalVisibleOne(true);
+                              }}>
                 <Text style={styles.buttonText}> Configurer la partie</Text>
             </TouchableOpacity>
             <Text style={styles.Selection}>
@@ -317,8 +317,8 @@ export default function SelectParamScreen() {
                     setmodSansCorrection(!modSansCorrection);
                 }}/>
 
-            <TouchableOpacity onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection}) : createRoom()} >
-                <View style={styles.button}>
+            <TouchableOpacity style={styles.startButton} onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection}) : createRoom()} >
+                <View>
                     <Text style={styles.buttonText}>Jouer</Text>
                 </View>
             </TouchableOpacity>
@@ -427,7 +427,3 @@ const styles = StyleSheet.create({
         backgroundColor: '#258D93',
     }
 });
-
-
-/*
- */

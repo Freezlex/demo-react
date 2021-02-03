@@ -9,6 +9,12 @@ import Burger from '../components/Burger';
 import {useRoute} from '@react-navigation/native';
 import {Stomp} from '@stomp/stompjs';
 
+const url = "ws://localhost:8080/ws-fnesi/websocket";
+const client = Stomp.client(url);
+
+client.connect({},  async () => {
+    console.log("Connecté au WS")
+});
 
 export default function RoomScreen() {
 
@@ -30,7 +36,7 @@ export default function RoomScreen() {
     const [idx, incr] = useState(2);
     const [sub , setSub] = useState(false)
 
-    const url = "ws://localhost:8080/ws-fnesi/websocket";
+
     let addElement: () => void;
     addElement = () => {
         let newArray = [...initialElements, {id: idx, text: value}];
@@ -57,13 +63,8 @@ export default function RoomScreen() {
     };
     const [listJoueur , upDatePlayer] = useState([{playerName : '' }]);
 
-    const client = Stomp.client(url);
     console.log(listJoueur);
 
-    const connectCallback = function() {
-        console.log('Connecté')
-    };
-    client.connect({},  connectCallback);
     const callback = function(message) {
         console.log(JSON.parse( message.body , message));
         // called when the client receives a STOMP message from the server
@@ -79,11 +80,12 @@ export default function RoomScreen() {
 
     setTimeout(function subPlayer()
     {
-
-        client.subscribe("/topic/room/" + code + "/game", callback);
         if( !sub ) {
+            console.log("SUB TO SERVER TOPIC")
             client.subscribe("/topic/room/" + code + "/handle-players", callback);
-            client.subscribe("/topic/room/" + code + "/game", callback);
+            client.subscribe("/topic/room/" + code + "/game", async (res) => {
+                console.log(JSON.parse(res.body))
+            });
 
             if (!sub) {
                 client.send(`/app/room/${code}/handle-players`, {}, JSON.stringify({
@@ -100,31 +102,37 @@ export default function RoomScreen() {
 
 
     function Pret() {
-            if (pret) {
-                client.send(`/app/room/${code}/game`, {}, JSON.stringify({
-                    player: {
-                        playerName: pseudo,
-                        roomId: response.id
-                    },
-                    status: "PLAYER_UNREADY",
-                }))
-                SetPret(false)
-            } else {
-                client.send(`/app/room/${code}/game`, {}, JSON.stringify({
-                    player: {
-                        playerName: pseudo,
-                        roomId: response.id
-                    },
-                    status: "PLAYER_READY",
-                }))
-                SetPret(true)
-            }
+        if (pret) {
+            client.send(`/app/room/${code}/game`, {}, JSON.stringify({
+                player: {
+                    playerName: pseudo,
+                    roomId: response.id
+                },
+                event:{
+                    status: "PLAYER_UNREADY"
+                },
+            }))
+            SetPret(false)
+        } else {
+            client.send(`/app/room/${code}/game`, {}, JSON.stringify({
+                player: {
+                    playerName: pseudo,
+                    roomId: response.id
+                },
+                event: {
+                    status: "PLAYER_READY"
+                },
+            }))
+            SetPret(true)
+        }
     }
 
     function subChat() {
         if (shouldShow) {
             setShouldShow(!shouldShow)
-            client.subscribe("/topic/room/" + code + "/chat", callback);
+            client.subscribe("/topic/room/" + code + "/chat", async (res) => {
+                console.log(res);
+            });
         }
         else {
             setShouldShow(!shouldShow)
