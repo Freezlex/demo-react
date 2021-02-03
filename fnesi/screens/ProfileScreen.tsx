@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, Image, Text, TouchableOpacity, Button } from 
 import { View } from '../components/Themed';
 import Background from "./Background";
 import Burger from '../components/Burger';
+import {AntDesign, Ionicons} from '@expo/vector-icons';
 
 
 export default function ProfileScreen() {
@@ -13,11 +14,28 @@ export default function ProfileScreen() {
             </View>
             <View style={styles.center}>
                 <Image style={styles.logo} source={require("../assets/images/person.png")}></Image>
-                <Text>Nom / Pseudo (Année)</Text>
-                <Text>Mes badges</Text>
-                <Text>Set de question joués récemment</Text>
-                <Text>Se déconnecter</Text>
+            <View style={styles.viewContainer}>
+                    <Text style={styles.text_left}>Pseudo : </Text>
+                    <Text style={styles.text}>Player</Text>
+                    <Text style={styles.text}><AntDesign name="right" size={32} color="white"/></Text>
             </View>
+            <View style={styles.viewContainer}>
+                    <Text style={styles.text_left}>Nom : </Text>
+                    <Text style={styles.text}>Bon</Text>
+                    <Text style={styles.text}><AntDesign name="right" size={32} color="white"/></Text>
+            </View>
+            <View style={styles.viewContainer}>
+                    <Text style={styles.text_left}>Prénom : </Text>
+                    <Text style={styles.text}>jean</Text>
+                    <Text style={styles.text}><AntDesign name="right" size={32} color="white"/></Text>
+            </View>
+            <View style={styles.viewContainer}>
+                    <Text style={styles.text_left}>Ifsi : </Text>
+                    <Text style={styles.text}>Pitié-Salpétrière AP-HP</Text>
+                    <Text style={styles.text}><AntDesign name="right" size={32} color="white"/></Text>
+            </View>
+            <Text style={styles.text}>Se déconnecter</Text>
+              </View>
         </SafeAreaView>
     );
 }
@@ -39,7 +57,24 @@ const styles = StyleSheet.create({
     logo: {
         width: 100,
         height: 100,
-        paddingBottom: 20,
         alignContent: 'center',
-    }
+    },
+    viewContainer:{
+        flexDirection: 'row',
+        margin:5,
+    },
+    text: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#fff',
+        margin: 10,
+    },
+    text_left: {
+        fontWeight: 'bold',
+        margin: 10,
+        color: '#fff',
+        fontSize: 20,
+        flex: 1.5,
+
+    },
 });
