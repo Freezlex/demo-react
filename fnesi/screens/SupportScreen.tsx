@@ -27,8 +27,7 @@ export default function SupportScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: 500,
-        backgroundColor: '#6F9FCE'
+        backgroundColor: '#2fb7bd'
     },
     view: {
         marginTop: 50,
@@ -40,14 +39,14 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         paddingBottom: 20,
         textAlign: 'center',
-
+        color:'white',
     },
     buttonText: {
-        color: 'white',
+        color: '#325d99',
         fontWeight: 'bold',
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
-    }
+    },
 });
 

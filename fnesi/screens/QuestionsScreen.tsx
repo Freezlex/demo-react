@@ -226,8 +226,8 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     view: {
-        marginTop: 50,
         flex: 1,
+       
     },
     container: {
         paddingTop : 20,
@@ -288,6 +288,8 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 18,
         textAlign: 'center',
+        paddingLeft:10,
+        paddingRight:10,
     },
 
 });
