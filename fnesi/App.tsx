@@ -56,14 +56,17 @@ export default function App() {
                options={{drawerIcon: ({focused, size}) => (
                 <Feather name="phone" size={size} color={focused ? '#7cc' : '#ccc'} />
               )}}/>
-               <Drawer.Screen name="Param" component={SelectParamScreen}  />
+              <Drawer.Screen name="Reglage" component={ReglageScreen} 
+               options={{drawerIcon: ({focused, size}) => (
+              <Ionicons name="settings-outline" size={size} color={focused ? '#7cc' : '#ccc'} />
+              )}}/>
+              <Drawer.Screen name="Param" component={SelectParamScreen}  />
               <Drawer.Screen name="Room" component={RoomScreen} />
               <Drawer.Screen name="P/P" component={SelectPrivatePublicScreen} />
               <Drawer.Screen name="Question" component={QuestionsScreen} />
               <Drawer.Screen name="Classement" component={Classement} />
               <Drawer.Screen name="GameMenu" component={JoinsGameMenu} />
               <Drawer.Screen name="Pub" component={Pub} />
-              <Drawer.Screen name="Reglage" component={ReglageScreen} />
 
               {/* Pour ajouter un écran cible dans le menu :
             <Drawer.Screen name="Nom à afficher" component={Screen à ajouter} /> */}
