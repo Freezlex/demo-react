@@ -23,7 +23,7 @@ export default function Classement() {
                         <Text style={styles.buttonText}>Detail</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Accueil')}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Continuer</Text>
                     </View>
