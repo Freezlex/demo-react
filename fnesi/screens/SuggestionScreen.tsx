@@ -3,12 +3,17 @@ import { Button, SafeAreaView, StyleSheet } from 'react-native';
 import { View, Text, } from '../components/Themed';
 import { Linking, TextInput } from 'react-native'
 import {AntDesign, Ionicons} from '@expo/vector-icons';
+import Burger from '../components/Burger';
 
 export default function SuggestionScreen() {
     return (
         <SafeAreaView style={styles.container}>
+            <View style={{marginTop:50,}}>
+                <Burger navigation/>
+            </View>
             <View style={styles.align}>
                 <Text style={styles.titre}>Suggestion</Text>
+                
             </View>
             <View>
                 <View style={styles.center}>
@@ -34,11 +39,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#2fb7bd',
-        alignItems:'center',
     },
     align: {
-        marginTop: 50,
         marginBottom: 40,
+        alignItems:'center',
     },
     titre: {
         color:'white',

@@ -19,6 +19,7 @@ import JoinsGameMenu from './screens/JoinsGameMenu';
 import Pub from './screens/Pub';
 import SuggestionScreen from './screens/SuggestionScreen';
 import {MaterialCommunityIcons, Ionicons, Entypo, Feather} from '@expo/vector-icons';
+import ReglageScreen from './screens/ReglageScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -62,6 +63,8 @@ export default function App() {
               <Drawer.Screen name="Classement" component={Classement} />
               <Drawer.Screen name="GameMenu" component={JoinsGameMenu} />
               <Drawer.Screen name="Pub" component={Pub} />
+              <Drawer.Screen name="Suggestion" component={SuggestionScreen} />
+              <Drawer.Screen name="Reglage" component={ReglageScreen} />
 
               {/* Pour ajouter un écran cible dans le menu :
             <Drawer.Screen name="Nom à afficher" component={Screen à ajouter} /> */}
