@@ -17,6 +17,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import SupportScreen from './screens/SupportScreen';
 import JoinsGameMenu from './screens/JoinsGameMenu';
 import Pub from './screens/Pub';
+import SuggestionScreen from './screens/SuggestionScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -35,14 +36,15 @@ export default function App() {
 
               <Drawer.Screen name="Home" component={TabOneScreen} />
               <Drawer.Screen name="Param" component={SelectParamScreen}  />
-                <Drawer.Screen name="Room" component={RoomScreen} />
-                <Drawer.Screen name="P/P" component={SelectPrivatePublicScreen} />
-                <Drawer.Screen name="Question" component={QuestionsScreen} />
-                <Drawer.Screen name="Classement" component={Classement} />
+              <Drawer.Screen name="Room" component={RoomScreen} />
+              <Drawer.Screen name="P/P" component={SelectPrivatePublicScreen} />
+              <Drawer.Screen name="Question" component={QuestionsScreen} />
+              <Drawer.Screen name="Classement" component={Classement} />
               <Drawer.Screen name="Support" component={SupportScreen} />
               <Drawer.Screen name="Profile" component={ProfileScreen} />
               <Drawer.Screen name="GameMenu" component={JoinsGameMenu} />
               <Drawer.Screen name="Pub" component={Pub} />
+              <Drawer.Screen name="Suggestion" component={SuggestionScreen} />
 
 
               {/* Pour ajouter un écran cible dans le menu :
