@@ -283,7 +283,7 @@ export default function SelectParamScreen() {
                     setModalVisibleOne(true);
                 }}>
                 <View style={styles.button}>
-                    <Text style={styles.buttonText}> Configurer la partie</Text>
+                    <Text style={styles.buttonTextSeconde}> Configurer la partie</Text>
                 </View>
                 
             </TouchableOpacity>
@@ -429,6 +429,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingLeft:10,
         paddingRight:10,
+        backgroundColor: '#258D93',
     },
     button: {
         borderRadius: 8,
@@ -441,5 +442,15 @@ const styles = StyleSheet.create({
         borderEndWidth: 5,
         borderEndColor: '#1D6E72',
         borderBottomLeftRadius: 3,
+    },
+    buttonTextSeconde: {
+        color: 'white',
+        fontWeight: 'bold',
+        textTransform: "uppercase",
+        fontSize: 16,
+        textAlign: 'center',
+        paddingLeft:10,
+        paddingRight:10,
+        backgroundColor: '#217D82',
     },
 });
