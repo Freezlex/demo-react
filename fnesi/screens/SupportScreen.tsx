@@ -34,7 +34,6 @@ export default function SupportScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: 500,
         backgroundColor: '#2fb7bd'
     },
     view: {
@@ -47,13 +46,7 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         paddingBottom: 20,
         textAlign: 'center',
-        borderBottomWidth: 2,
-        borderBottomColor: 'white',
-        marginHorizontal: '5%',
-        marginBottom: 20,
-        color: 'white',
-        marginTop: 50,
-
+        color:'white',
     },
     button: {
         borderRadius: 8,
@@ -68,15 +61,11 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 3,
     },
     buttonText: {
-        color: 'white',
+        color: '#325d99',
         fontWeight: 'bold',
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
-        backgroundColor: '#258D93',
     },
-    secondView: {
-        backgroundColor: '#258D93',
-    }
 });
 

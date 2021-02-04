@@ -278,11 +278,14 @@ export default function SelectParamScreen() {
 
             {modalOne}
             {modalTwo}
-            <TouchableOpacity style={styles.configButton}
-                              onPress={() => {
-                                  setModalVisibleOne(true);
-                              }}>
-                <Text style={styles.buttonText}> Configurer la partie</Text>
+            <TouchableOpacity
+                onPress={() => {
+                    setModalVisibleOne(true);
+                }}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}> Configurer la partie</Text>
+                </View>
+                
             </TouchableOpacity>
             <Text style={styles.Selection}>
                 UE(s) choisis :
@@ -424,6 +427,19 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
-        backgroundColor: '#258D93',
-    }
+        paddingLeft:10,
+        paddingRight:10,
+    },
+    button: {
+        borderRadius: 8,
+        paddingVertical: 20,
+        backgroundColor: '#217D82',
+        marginHorizontal: 40,
+        marginBottom: 30,
+        borderBottomColor: '#1D6E72',
+        borderBottomWidth: 5,
+        borderEndWidth: 5,
+        borderEndColor: '#1D6E72',
+        borderBottomLeftRadius: 3,
+    },
 });

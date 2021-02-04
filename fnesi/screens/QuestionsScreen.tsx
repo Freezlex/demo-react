@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
     },
     view: {
         flex: 1,
+       
     },
     container: {
         flex: 1,
@@ -292,6 +293,8 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 16,
         textAlign: 'center',
+        paddingLeft:10,
+        paddingRight:10,
     },
 
 });

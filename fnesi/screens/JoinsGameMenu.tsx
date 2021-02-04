@@ -104,7 +104,7 @@ export default function JoinsGameMenu ( { }: StackScreenProps<RootStackParamList
                 <Text style={styles.titleSecondaire}>Rejoindre une partie Privé</Text>
                 <TextInput
                     style={styles.buttonText}
-                    placeholder="Pseudo"
+                    placeholder="Pseudo "
                     onChangeText={pseudo => setPseudo(pseudo)}
                     defaultValue={pseudo}
                 />
@@ -187,7 +187,6 @@ const styles = StyleSheet.create({
         borderEndWidth: 5,
         borderEndColor: '#1e3c5a',
         borderBottomLeftRadius: 3,
-
     },
     buttonText: {
         color: 'white',
@@ -195,7 +194,6 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 25,
         textAlign: 'center',
-        fontFamily: 'press-2-start'
     },
     border:{
         borderColor: 'white',
