@@ -31,7 +31,7 @@ export default function App() {
         <SafeAreaProvider>
           <NavigationContainer>
             <Drawer.Navigator drawerStyle={{backgroundColor: '#a6c5ff'}}
-                              initialRouteName="Pub">
+                              initialRouteName="Home">
 
               <Drawer.Screen name="Home" component={TabOneScreen} />
               <Drawer.Screen name="Param" component={SelectParamScreen}  />
