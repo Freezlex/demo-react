@@ -63,7 +63,6 @@ export default function App() {
               <Drawer.Screen name="Classement" component={Classement} />
               <Drawer.Screen name="GameMenu" component={JoinsGameMenu} />
               <Drawer.Screen name="Pub" component={Pub} />
-              <Drawer.Screen name="Suggestion" component={SuggestionScreen} />
               <Drawer.Screen name="Reglage" component={ReglageScreen} />
 
               {/* Pour ajouter un écran cible dans le menu :
