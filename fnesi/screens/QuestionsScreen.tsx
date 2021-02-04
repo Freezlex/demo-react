@@ -26,7 +26,7 @@ const QuestionsScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const {modSansCorrection} = route.params;
-    const [timerIsPlay, setTimer] = React.useState(true);
+    const {local} = route.params
     const [seconds, setSeconds] = React.useState(10);
     const [isActive, setIsActive] = useState(true);
 
@@ -62,9 +62,10 @@ const QuestionsScreen = () => {
     };
 
     const Item = ({ item, onPress , style }) => (
-        <TouchableOpacity onPress={onPress} style={[styles.button , pause ? modSansCorrection ? {backgroundColor: "#5d645c"} :  item.correct ? {backgroundColor: "#168d20"} : {backgroundColor:"#8d0700"} : style ]}>
+        <TouchableOpacity onPress={onPress} style={[styles.button , pause ? modSansCorrection ? {backgroundColor: "#5d645c"} :  item.correct ? {backgroundColor: "#168d20", borderBottomColor: "#0f7518", borderEndColor: "#0f7518"} : {backgroundColor:"#8d0700", borderBottomColor: "#5d0703", borderEndColor: "#5d0703"} : style ]}>
             <Text style={styles.buttonText}>{item.text}</Text>
         </TouchableOpacity>
+
     );
 
     function toggle() {
@@ -182,7 +183,6 @@ const QuestionsScreen = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>{seconds}</Text>
-
                 <Animated.View style={[{
                     width:'100%',
                     height: height,
@@ -190,7 +190,6 @@ const QuestionsScreen = () => {
                     position: 'absolute',
                     backgroundColor: '#2fb7bd'},] }>
                 </Animated.View>
-
 
                 <View style={{
 
@@ -216,9 +215,12 @@ const QuestionsScreen = () => {
             </SafeAreaView>
 
         </View>
+
     );
 
 };
+
+
 
 
 const styles = StyleSheet.create({
@@ -226,11 +228,9 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     view: {
-        marginTop: 50,
         flex: 1,
     },
     container: {
-        paddingTop : 20,
         flex: 1,
     },
     item: {
@@ -240,12 +240,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
     },
     title: {
-        fontSize: 32,
+        fontSize: 28,
         textAlign:'center',
         color:'white',
         fontWeight: 'bold',
         textTransform: "uppercase",
-        marginBottom:15,
+        marginBottom:10,
     },
     question: {
         fontSize: 20,
@@ -261,14 +261,18 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 8,
         paddingVertical: 20,
-        backgroundColor: '#258D93',
         marginHorizontal: 40,
-        marginBottom: 20,
-        borderBottomColor: '#217D82',
+        marginBottom: 15,
+        borderBottomColor: '#195f70',
         borderBottomWidth: 5,
         borderEndWidth: 5,
-        borderEndColor: '#217D82',
+        borderEndColor: '#195f70',
         borderBottomLeftRadius: 3,
+        minWidth: '80%',
+        maxWidth: '80%',
+        minHeight: 85,
+        maxHeight: 85,
+
     },
     buttonNext: {
         borderRadius: 8,
@@ -286,10 +290,11 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textTransform: "uppercase",
-        fontSize: 18,
+        fontSize: 16,
         textAlign: 'center',
     },
 
 });
+
 
 export default QuestionsScreen;

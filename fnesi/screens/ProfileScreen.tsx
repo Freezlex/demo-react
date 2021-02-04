@@ -1,7 +1,6 @@
 import React, {Component, useState} from 'react';
 import { SafeAreaView, StyleSheet, Image, Text, TouchableOpacity, Button, TextInput, Modal } from 'react-native';
 import { View } from '../components/Themed';
-import Background from "./Background";
 import Burger from '../components/Burger';
 import {AntDesign, Ionicons} from '@expo/vector-icons';
 
@@ -145,10 +144,10 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: 500,
-        backgroundColor: '#6F9FCE'
+        backgroundColor: '#2fb7bd',
     },
     center: {
+        flex: 1,
         alignItems: "center",
         textAlign: "center",
         alignContent: "center"
