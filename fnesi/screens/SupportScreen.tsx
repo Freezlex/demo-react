@@ -24,9 +24,6 @@ export default function SupportScreen() {
                 {/* Remplacer ça par une zone de texte et un bouton envoyer avec confirmation et identification obligatoire ?
                 Section aide / FAQ ?  */}
             </View>
-            <View style={styles.secondView}>
-
-            </View>
         </SafeAreaView>
     );
 }
@@ -61,7 +58,8 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 3,
     },
     buttonText: {
-        color: '#325d99',
+        backgroundColor: '#258D93',
+        color: '#fff',
         fontWeight: 'bold',
         textTransform: "uppercase",
         fontSize: 16,
