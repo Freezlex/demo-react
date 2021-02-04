@@ -16,6 +16,7 @@ import Classement from './screens/Classement';
 import ProfileScreen from './screens/ProfileScreen';
 import SupportScreen from './screens/SupportScreen';
 import JoinsGameMenu from './screens/JoinsGameMenu';
+import Pub from './screens/Pub';
 import SuggestionScreen from './screens/SuggestionScreen';
 
 const Drawer = createDrawerNavigator();
@@ -42,6 +43,7 @@ export default function App() {
               <Drawer.Screen name="Support" component={SupportScreen} />
               <Drawer.Screen name="Profile" component={ProfileScreen} />
               <Drawer.Screen name="GameMenu" component={JoinsGameMenu} />
+              <Drawer.Screen name="Pub" component={Pub} />
               <Drawer.Screen name="Suggestion" component={SuggestionScreen} />
 
 
