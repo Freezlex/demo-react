@@ -24,7 +24,6 @@ export default function JoinsGameMenu ( { }: StackScreenProps<RootStackParamList
     ]);
     const [idx, incr] = useState(2);
     const [value,onChangeText] = useState('');
-    let addElement: () => void;
     const [pseudo, setPseudo] = useState('Player');
     const [code, setCode] = useState('');
     const [password, setMdp] = useState('');
@@ -32,10 +31,7 @@ export default function JoinsGameMenu ( { }: StackScreenProps<RootStackParamList
     const [Parm , getParam] = useState(false)
     const [selectedId, setSelectedId] = useState(null);
 
-    addElement = () => {
-        incr(idx + 1);
-        let newArray = [...initialElements, {id: idx, text: value}];
-    };
+
 
     function valide(pseudo , password , code) {
         if (pseudo === ''|| password === '' ) {
@@ -60,17 +56,17 @@ export default function JoinsGameMenu ( { }: StackScreenProps<RootStackParamList
     useEffect(
 
         function getAllPublicRoom()  {if(!Parm) {
-         fetch("http://"+ url +":8080/room/get-public/5")
-        .then(res => res.json())
-        .then(
-            (result) => {
-                console.log(result);
-                setListe(result)
-                getParam(true)
+            fetch("http://"+ url +":8080/room/get-public/5")
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        console.log(result);
+                        setListe(result)
+                        getParam(true)
 
-            }
-        )
-    }} );
+                    }
+                )
+        }} );
 
     const Item = ({ id, players , password , result}) => (
         <TouchableOpacity onPress={() => navigation.navigate('Room', {password: password, code : id , pseudo : pseudo , response : result})} >
@@ -86,7 +82,7 @@ export default function JoinsGameMenu ( { }: StackScreenProps<RootStackParamList
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titreCenter}>
-                <Text style={styles.title}>Selectionner une parti</Text>
+                <Text style={styles.title}>Selectionner une partie</Text>
             </View>
             <View style={styles.textAlign}>
                 <Text style={styles.titleSecondaire}>Public</Text>
@@ -101,10 +97,10 @@ export default function JoinsGameMenu ( { }: StackScreenProps<RootStackParamList
                 </View>
             </View>
             <View style={styles.textAlign}>
-                <Text style={styles.titleSecondaire}>Rejoindre une partie Privé</Text>
+                <Text style={styles.titleSecondaire}>Rejoindre une partie Priver</Text>
                 <TextInput
                     style={styles.buttonText}
-                    placeholder="Pseudo "
+                    placeholder="Pseudo"
                     onChangeText={pseudo => setPseudo(pseudo)}
                     defaultValue={pseudo}
                 />
@@ -187,6 +183,7 @@ const styles = StyleSheet.create({
         borderEndWidth: 5,
         borderEndColor: '#1e3c5a',
         borderBottomLeftRadius: 3,
+
     },
     buttonText: {
         color: 'white',
@@ -194,6 +191,7 @@ const styles = StyleSheet.create({
         textTransform: "uppercase",
         fontSize: 25,
         textAlign: 'center',
+        fontFamily: 'press-2-start'
     },
     border:{
         borderColor: 'white',

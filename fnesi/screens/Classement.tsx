@@ -18,9 +18,9 @@ export default function Classement() {
                 <Text style={styles.text}>1er Pseudo {points} Points</Text>
             </View>
             <View style={styles.view}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Correction')}>
                     <View style={styles.button}>
-                        <Text style={styles.buttonText}>Detail</Text>
+                        <Text style={styles.buttonText}>Correction</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Accueil')}>
@@ -30,6 +30,7 @@ export default function Classement() {
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
+
     );
 }
 

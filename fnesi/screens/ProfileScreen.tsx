@@ -135,13 +135,25 @@ export default function ProfileScreen() {
                             <Text style={styles.text}><AntDesign name="right" size={32} color="white"/></Text>
                         </TouchableOpacity>
             </View>
-            <Text style={styles.text}>Se déconnecter</Text>
+                <TouchableOpacity style={styles.button}>
+                    <View>
+                        <Text style={styles.textButton}>Déconnexion</Text>
+                    </View>
+                </TouchableOpacity>
               </View>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    textButton:{
+        color: 'white',
+        fontWeight: 'bold',
+        textTransform: "uppercase",
+        fontSize: 16,
+        textAlign: 'center',
+        backgroundColor: '#258D93',
+    },
     container: {
         flex: 1,
         height: 500,

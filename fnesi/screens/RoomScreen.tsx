@@ -4,13 +4,13 @@ import {SafeAreaView, StyleSheet, TouchableOpacity, TextInput, FlatList} from 'r
 import {Text, View} from '../components/Themed';
 import Chat from '../components/Chat';
 import {AntDesign, Ionicons} from '@expo/vector-icons';
+import url from '../env/variableUrl';
 
 import Burger from '../components/Burger';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {Stomp} from '@stomp/stompjs';
-
-const url = "ws://localhost:8080/ws-fnesi/websocket";
-const client = Stomp.client(url);
+const urlA = "ws://"+ url+":8080/ws-fnesi/websocket";
+const client = Stomp.client(urlA);
 
 client.connect({},  async () => {
     console.log("Connecté au WS")
@@ -31,11 +31,12 @@ export default function RoomScreen() {
     const [shouldShow, setShouldShow] = useState(false);
     const [initialElements, changeEl] = useState([
     ]);
+    const [CanStart, SetCanStart] = useState(false)
     const [value, onChangeText] = useState('');
     const [data, setExampleState] = useState(initialElements);
     const [idx, incr] = useState(2);
     const [sub , setSub] = useState(false)
-
+    const navigation = useNavigation( );
 
     let addElement: () => void;
     addElement = () => {
@@ -84,7 +85,20 @@ export default function RoomScreen() {
             console.log("SUB TO SERVER TOPIC")
             client.subscribe("/topic/room/" + code + "/handle-players", callback);
             client.subscribe("/topic/room/" + code + "/game", async (res) => {
-                console.log(JSON.parse(res.body))
+                console.log(JSON.parse(res.body));
+                const rep = JSON.parse(res.body)
+                console.log(rep.status)
+                if( rep.status ==="START_GAME"){
+                    SetCanStart(true)
+                }
+                if(rep.status === "CANCEL_START_GAME"){
+                    SetCanStart(false)
+                }
+                if(rep.code === "INVALID_EVENT"){
+                    navigation.navigate('Question', {modSansCorrection: modSansCorrection})
+                }
+
+
             });
 
             if (!sub) {
@@ -141,7 +155,16 @@ export default function RoomScreen() {
     }
 
     function HostStart() {
-        console.log('t es host tu vas rien faire ptot')
+        client.send(`/app/room/${code}/game`, {}, JSON.stringify({
+            player: {
+                playerName: pseudo,
+                roomId: response.id
+            },
+            event:{
+                status: "GAME_START"
+            },
+        }))
+        console.log(CanStart)
     }
 
     return (
@@ -157,9 +180,9 @@ export default function RoomScreen() {
             <Text style={styles.pseudo}>Niveau choisi : </Text>
 
             <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)"/>
-            <TouchableOpacity onPress={() => isHost ? HostStart() : Pret()}>
-                <View style={pret ? styles.buttonPret : styles.button }>
-                    <Text style={styles.buttonText}>{isHost ? buttonPlay : buttonReady}</Text>
+            <TouchableOpacity onPress={() => isHost ? CanStart ? HostStart() : console.log("tout les jours ne sont pas pret") : Pret()}>
+                <View style={CanStart ? styles.buttonStart :pret ? styles.buttonPret : styles.button }>
+                    <Text style={styles.buttonText }>{isHost ? CanStart ? "Lancer la partie" : "En attente des autres joueurs" : buttonReady}</Text>
                 </View>
 
             </TouchableOpacity>
@@ -260,6 +283,19 @@ const styles = StyleSheet.create({
         borderBottomWidth: 5,
         borderEndWidth: 5,
         borderEndColor: '#750e03',
+        borderBottomLeftRadius: 3,
+    },
+
+    buttonStart: {
+        borderRadius: 8,
+        paddingVertical: 20,
+        backgroundColor: "#168d20",
+        marginHorizontal: 40,
+        marginBottom: 30,
+        borderBottomColor: "#0f7518",
+        borderBottomWidth: 5,
+        borderEndWidth: 5,
+        borderEndColor: "#0f7518",
         borderBottomLeftRadius: 3,
     },
     buttonPret: {

@@ -20,6 +20,7 @@ import Pub from './screens/Pub';
 import SuggestionScreen from './screens/SuggestionScreen';
 import {MaterialCommunityIcons, Ionicons, Entypo, Feather} from '@expo/vector-icons';
 import ReglageScreen from './screens/ReglageScreen';
+import CorrectionScreen from './screens/Correction';
 
 const Drawer = createDrawerNavigator();
 
@@ -44,19 +45,19 @@ export default function App() {
               options={{drawerIcon: ({focused, size}) => (
               <Ionicons name="md-home" style={{position:'absolute'}} size={size} color={focused ? '#7cc' : '#ccc'}/>
               )}}/>
-               <Drawer.Screen name="Profile" component={ProfileScreen} 
+               <Drawer.Screen name="Profile" component={ProfileScreen}
               options={{drawerIcon: ({focused, size}) => (
               <MaterialCommunityIcons name="account" size={size} color={focused ? '#7cc' : '#ccc'} />
               )}}/>
-              <Drawer.Screen name="Suggestion" component={SuggestionScreen}
+              <Drawer.Screen name="Suggestions" component={SuggestionScreen}
                options={{drawerIcon: ({focused, size}) => (
               <Entypo name="new-message" size={size} color={focused ? '#7cc' : '#ccc'} />
                )}}/>
-              <Drawer.Screen name="Support" component={SupportScreen} 
+              <Drawer.Screen name="Support" component={SupportScreen}
                options={{drawerIcon: ({focused, size}) => (
                 <Feather name="phone" size={size} color={focused ? '#7cc' : '#ccc'} />
               )}}/>
-              <Drawer.Screen name="Reglage" component={ReglageScreen} 
+              <Drawer.Screen name="Règlage" component={ReglageScreen}
                options={{drawerIcon: ({focused, size}) => (
               <Ionicons name="settings-outline" size={size} color={focused ? '#7cc' : '#ccc'} />
               )}}/>
@@ -67,6 +68,7 @@ export default function App() {
               <Drawer.Screen name="Classement" component={Classement} />
               <Drawer.Screen name="GameMenu" component={JoinsGameMenu} />
               <Drawer.Screen name="Pub" component={Pub} />
+              <Drawer.Screen name="Correction" component={CorrectionScreen} />
 
               {/* Pour ajouter un écran cible dans le menu :
             <Drawer.Screen name="Nom à afficher" component={Screen à ajouter} /> */}
