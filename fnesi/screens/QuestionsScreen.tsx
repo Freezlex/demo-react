@@ -75,7 +75,9 @@ const QuestionsScreen = () => {
     function reset() {
         setSeconds(10);
         setIsActive(false);
+        restartAnimation()
     }
+
     useEffect(() => {
         let interval = null;
         if (isActive) {
@@ -84,6 +86,7 @@ const QuestionsScreen = () => {
             }, 1000);
         } else if (!isActive && seconds !== 0) {
             clearInterval(interval);
+            stopAnimation()
         }
 
         if (seconds === 0 ){
@@ -112,9 +115,16 @@ const QuestionsScreen = () => {
         }).start()
     }
 
+    function stopAnimation() {
+        Animated.timing(topValue,{
+            useNativeDriver: false,
+            toValue: 0,
+            duration: 0
+        }).stop()
+    }
+
     function validate() {
 
-        console.log(selectedId)
         if (selectedId === null) {
             setMyArray(oldArray => [...oldArray, "0"]);
         }
@@ -154,6 +164,8 @@ const QuestionsScreen = () => {
 
 
     function continuer() {
+
+        startAnimation()
         reset()
         setIsActive(true)
         if (question === 4) {
@@ -231,6 +243,7 @@ const styles = StyleSheet.create({
     },
     view: {
         flex: 1,
+        backgroundColor: '#1c7dbd'
 
     },
     container: {
