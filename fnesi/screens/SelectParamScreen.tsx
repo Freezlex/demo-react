@@ -67,7 +67,7 @@ export default function SelectParamScreen() {
                 console.log(json);
                 setPassword(json.response.password);
                 setCode(json.response.id);
-                navigation.navigate("Room", {code:json.response.id,password:json.response.password,pseudo:pseudo,isHost:true ,modSansCorrection : modSansCorrection ,response : json.response , local : local})
+                navigation.navigate("Room", {code:json.response.id,password:json.response.password,pseudo:pseudo,isHost:true ,modSansCorrection : modSansCorrection ,response : json.response , local:local})
 
             })
             .catch((error) => {
@@ -78,63 +78,56 @@ export default function SelectParamScreen() {
     }
 
     const modalHeaderOne = (
-        <View style={styles.modalHeader}>
-            <Text style={styles.title}>Choisissez le(s) UE(s) de la partie</Text>
-            <View style={styles.divider}></View>
-        </View>
+        <Text style={styles.title}>Choisissez un ou plusieurs UE(s)</Text>
     )
     const modalHeaderTwo = (
-        <View style={styles.modalHeader}>
-            <Text style={styles.title}>Choisissez le(s) semestre(s) de la partie</Text>
-            <View style={styles.divider}></View>
-        </View>
+        <Text style={styles.title}>Choisissez un ou plusieurs Semestre(s)</Text>
     )
     const modalBodyOne = (
         <ScrollView style={styles.scrollView}>
             <View style={styles.modalBody}>
-                <CheckBox
-                    title='UE 1'
-                    checked={checkBoxUE1}
-                    onPress={() => {
-                        setcheckBoxUE1(!checkBoxUE1);
-                    }}/>
-                <CheckBox
-                    title='UE 2'
-                    checked={checkBoxUE2}
-                    onPress={() => {
-                        setcheckBoxUE2(!checkBoxUE2);
-                    }}/>
-                <CheckBox
-                    title='UE 3'
-                    checked={checkBoxUE3}
-                    onPress={() => {
-                        setcheckBoxUE3(!checkBoxUE3);
-                    }}/>
-                <CheckBox
-                    title='UE 4'
-                    checked={checkBoxUE4}
-                    onPress={() => {
-                        setcheckBoxUE4(!checkBoxUE4);
-                    }}/>
-                <CheckBox
-                    title='UE 5'
-                    checked={checkBoxUE5}
-                    onPress={() => {
-                        setcheckBoxUE5(!checkBoxUE5);
-                    }}/>
-                <CheckBox
-                    title='UE 6'
-                    checked={checkBoxUE6}
-                    onPress={() => {
-                        setcheckBoxUE6(!checkBoxUE6);
-                    }}/>
-                <CheckBox
-                    title='UE 7'
-                    checked={checkBoxUE7}
-                    onPress={() => {
-                        setcheckBoxUE7(!checkBoxUE7);
-                    }}/>
-
+                <CheckBox style={styles.checkbox}
+                          title='UE 1'
+                          checked={checkBoxUE1}
+                          onPress={() => {
+                              setcheckBoxUE1(!checkBoxUE1);
+                          }}/>
+                <CheckBox style={styles.checkbox}
+                          title='UE 2'
+                          checked={checkBoxUE2}
+                          onPress={() => {
+                              setcheckBoxUE2(!checkBoxUE2);
+                          }}/>
+                <CheckBox style={styles.checkbox}
+                          title='UE 3'
+                          checked={checkBoxUE3}
+                          onPress={() => {
+                              setcheckBoxUE3(!checkBoxUE3);
+                          }}/>
+                <CheckBox style={styles.checkbox}
+                          title='UE 4'
+                          checked={checkBoxUE4}
+                          onPress={() => {
+                              setcheckBoxUE4(!checkBoxUE4);
+                          }}/>
+                <CheckBox style={styles.checkbox}
+                          title='UE 5'
+                          checked={checkBoxUE5}
+                          onPress={() => {
+                              setcheckBoxUE5(!checkBoxUE5);
+                          }}/>
+                <CheckBox style={styles.checkbox}
+                          title='UE 6'
+                          checked={checkBoxUE6}
+                          onPress={() => {
+                              setcheckBoxUE6(!checkBoxUE6);
+                          }}/>
+                <CheckBox style={styles.checkbox}
+                          title='UE 7'
+                          checked={checkBoxUE7}
+                          onPress={() => {
+                              setcheckBoxUE7(!checkBoxUE7);
+                          }}/>
 
             </View>
         </ScrollView>
@@ -183,23 +176,14 @@ export default function SelectParamScreen() {
                         setcheckBoxSemestre6(!checkBoxSemestre6);
                     }}/>
 
-
-
             </View>
         </ScrollView>
     )
 
     console.log(selectedValueSemestre);
     const modalFooterOne = (
-        <View style={styles.modalFooter}>
-            <View style={styles.divider}></View>
-            <View style={{flexDirection: "row-reverse", margin: 10}}>
-                <TouchableOpacity style={{...styles.actions, backgroundColor: "#db2828"}}
-                                  onPress={() => {
-                                      setModalVisibleOne(!modalVisibleOne);
-                                  }}>
-                    <Text style={styles.actionText}>Annuler</Text>
-                </TouchableOpacity>
+        <View>
+            <View style={styles.rowButton}>
                 <TouchableOpacity style={{...styles.actions, backgroundColor: "#21ba45"}}
                                   onPress={() => {
                                       setModalVisibleOne(!modalVisibleOne);
@@ -207,24 +191,30 @@ export default function SelectParamScreen() {
                                   }}>
                     <Text style={styles.actionText}>Confirmer</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={{...styles.actions, backgroundColor: "#db2828"}}
+                                  onPress={() => {
+                                      setModalVisibleOne(!modalVisibleOne);
+                                  }}>
+                    <Text style={styles.actionText}>Annuler</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
     const modalFooterTwo = (
         <View style={styles.modalFooter}>
             <View style={styles.divider}></View>
-            <View style={{flexDirection: "row-reverse", margin: 10}}>
-                <TouchableOpacity style={{...styles.actions, backgroundColor: "#8d0700"}}
-                                  onPress={() => {
-                                      setModalVisibleTwo(!modalVisibleTwo);
-                                  }}>
-                    <Text style={styles.actionText}>Annuler</Text>
-                </TouchableOpacity>
+            <View style={styles.rowButton}>
                 <TouchableOpacity style={{...styles.actions, backgroundColor: "#028d05"}}
                                   onPress={() => {
                                       setModalVisibleTwo(!modalVisibleTwo);
                                   }}>
                     <Text style={styles.actionText}>Confirmer</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{...styles.actions, backgroundColor: "#8d0700"}}
+                                  onPress={() => {
+                                      setModalVisibleTwo(!modalVisibleTwo);
+                                  }}>
+                    <Text style={styles.actionText}>Annuler</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -287,29 +277,34 @@ export default function SelectParamScreen() {
                 </View>
 
             </TouchableOpacity>
+
             <Text style={styles.Selection}>
-                UE(s) choisis :
+                UE(s) sélectionnés :
             </Text>
+
             <Text style={styles.ValueCheckBox}>
-                {checkBoxUE1 ? "UE 1 " : ""}
-                {checkBoxUE2 ? "UE 2 " : ""}
-                {checkBoxUE3 ? "UE 3 " : ""}
-                {checkBoxUE4 ? "UE 4 " : ""}
-                {checkBoxUE5 ? "UE 5 " : ""}
-                {checkBoxUE6 ? "UE 6 " : ""}
-                {checkBoxUE7 ? "UE 7 " : ""}
+                {checkBoxUE1 ? " UE 1 |" : ""}
+                {checkBoxUE2 ? " UE 2 |" : ""}
+                {checkBoxUE3 ? " UE 3 |" : ""}
+                {checkBoxUE4 ? " UE 4 |" : ""}
+                {checkBoxUE5 ? " UE 5 |" : ""}
+                {checkBoxUE6 ? " UE 6 |" : ""}
+                {checkBoxUE7 ? " UE 7 |" : ""}
             </Text>
+
             <Text style={styles.Selection}>
-                Semestre(s) choisis :
+                Semestre(s) sélectionnés :
             </Text>
+
             <Text style={styles.ValueCheckBox}>
-                {checkBoxSemestre1 ? "Semestre 1 " : ""}
-                {checkBoxSemestre2 ? "Semestre 2 " : ""}
-                {checkBoxSemestre3 ? "Semestre 3 " : ""}
-                {checkBoxSemestre4 ? "Semestre 4 " : ""}
-                {checkBoxSemestre5 ? "Semestre 5 " : ""}
-                {checkBoxSemestre6 ? "Semestre 6 " : ""}
+                {checkBoxSemestre1 ? " Semestre 1 |" : ""}
+                {checkBoxSemestre2 ? " Semestre 2 |" : ""}
+                {checkBoxSemestre3 ? " Semestre 3 |" : ""}
+                {checkBoxSemestre4 ? " Semestre 4 |" : ""}
+                {checkBoxSemestre5 ? " Semestre 5 |" : ""}
+                {checkBoxSemestre6 ? " Semestre 6 |" : ""}
             </Text>
+
             <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
             <CheckBox
@@ -320,7 +315,7 @@ export default function SelectParamScreen() {
                     setmodSansCorrection(!modSansCorrection);
                 }}/>
 
-            <TouchableOpacity style={styles.startButton} onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection, local : local}) : createRoom()} >
+            <TouchableOpacity style={styles.startButton} onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection}) : createRoom()} >
                 <View>
                     <Text style={styles.buttonText}>Jouer</Text>
                 </View>
@@ -332,14 +327,20 @@ export default function SelectParamScreen() {
 
 const styles = StyleSheet.create({
     separator: {
-        marginVertical: 30,
+        marginBottom: 30,
         height: 1,
         width: '80%',
     },
     ValueCheckBox:{
         fontWeight: "bold",
-        fontSize: 13,
-        color: "#000000",
+        fontSize: 16,
+        color: "#b0fbfd",
+        borderRadius: 3,
+        paddingHorizontal: 10,
+        marginBottom: 25,
+        textAlign: 'center',
+        marginHorizontal: 5,
+        marginVertical: 5,
     },
     scrollView: {
         height: '53%',
@@ -350,8 +351,8 @@ const styles = StyleSheet.create({
     },
     Selection: {
         fontWeight: "bold",
-        fontSize: 18,
-        color: "gray",
+        fontSize: 22,
+        color: "white",
     },
     container: {
         flex: 1,
@@ -366,25 +367,19 @@ const styles = StyleSheet.create({
     modalContainer: {
         width: "80%",
         borderRadius: 5,
-        marginTop: '30%'
-
-    },
-    modalHeader: {
     },
     title: {
         fontWeight: "bold",
         fontSize: 20,
-        padding: 15,
-    },
-    divider: {
-        width: "100%",
-        height: 1,
+        padding: 10,
+        textAlign: "center",
+        color: 'white',
     },
     modalBody: {
         paddingVertical: 20,
         paddingHorizontal: 10
     },
-    modalFooter: {},
+
     actions: {
         borderRadius: 5,
         marginHorizontal: 10,
@@ -453,4 +448,9 @@ const styles = StyleSheet.create({
         paddingRight:10,
         backgroundColor: '#217D82',
     },
+    rowButton: {
+        flexDirection: "row",
+        marginTop: 20,
+        alignSelf: "center",
+    }
 });
