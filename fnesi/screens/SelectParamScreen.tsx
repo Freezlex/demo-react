@@ -67,7 +67,7 @@ export default function SelectParamScreen() {
                 console.log(json);
                 setPassword(json.response.password);
                 setCode(json.response.id);
-                navigation.navigate("Room", {code:json.response.id,password:json.response.password,pseudo:pseudo,isHost:true ,modSansCorrection : modSansCorrection ,response : json.response})
+                navigation.navigate("Room", {code:json.response.id,password:json.response.password,pseudo:pseudo,isHost:true ,modSansCorrection : modSansCorrection ,response : json.response , local : local})
 
             })
             .catch((error) => {
@@ -285,7 +285,7 @@ export default function SelectParamScreen() {
                 <View style={styles.button}>
                     <Text style={styles.buttonTextSeconde}> Configurer la partie</Text>
                 </View>
-                
+
             </TouchableOpacity>
             <Text style={styles.Selection}>
                 UE(s) choisis :
@@ -320,7 +320,7 @@ export default function SelectParamScreen() {
                     setmodSansCorrection(!modSansCorrection);
                 }}/>
 
-            <TouchableOpacity style={styles.startButton} onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection}) : createRoom()} >
+            <TouchableOpacity style={styles.startButton} onPress={() => local ? navigation.navigate("Question" , {modSansCorrection : modSansCorrection, local : local}) : createRoom()} >
                 <View>
                     <Text style={styles.buttonText}>Jouer</Text>
                 </View>

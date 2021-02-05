@@ -26,6 +26,7 @@ export default function RoomScreen() {
     const {isHost} = route.params;
     const {code} = route.params;
     const {pseudo} = route.params;
+    const {local} = route.params;
     const {modSansCorrection} = route.params;
     const [pret, SetPret] = useState(false);
     const [shouldShow, setShouldShow] = useState(false);
@@ -95,7 +96,7 @@ export default function RoomScreen() {
                     SetCanStart(false)
                 }
                 if(rep.code === "INVALID_EVENT"){
-                    navigation.navigate('Question', {modSansCorrection: modSansCorrection})
+                    navigation.navigate('Question', {modSansCorrection: modSansCorrection , local : local})
                 }
 
 

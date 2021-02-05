@@ -3,16 +3,33 @@ import {SafeAreaView, StyleSheet, Image, Text, TouchableOpacity, ScrollView, Fla
 import { View } from '../components/Themed';
 import Burger from '../components/Burger';
 import QuestionLocal from '../assets/data/QuestionLocal';
-
+import {useRoute} from '@react-navigation/native';
+import {useState} from 'react';
 
 const DATA = QuestionLocal();
 
 
-export default function CorrectionScreen() {
+export default function CorrectionScreen()  {
+    const route = useRoute();
+    const {questionRepondu} = route.params
+    console.log(questionRepondu)
+    const tabQuestionRep = questionRepondu
 
     const renderItem = ({item , index}) => {
         console.log(item.answers)
+        const indox = index
 
+
+        const CompQuestion = ({item : item}) => {
+            return   <View>
+                <TouchableOpacity  style={[styles.button , item.correct ? {backgroundColor: "#168d20", borderBottomColor: "#0f7518", borderEndColor: "#0f7518"} : {backgroundColor:"#8d0700", borderBottomColor: "#5d0703", borderEndColor: "#5d0703"} ]}>
+                    <View>
+                        <Text style={[styles.text, item.correct ? {backgroundColor: "#168d20", borderBottomColor: "#0f7518", borderEndColor: "#0f7518"} : {backgroundColor:"#8d0700", borderBottomColor: "#5d0703", borderEndColor: "#5d0703"}]}>{questionRepondu[indox] == item.id ? "Votre réponse " + item.text : item.text}</Text>
+                    </View>
+                </TouchableOpacity>
+
+            </View>
+        }
 
         return (
             <View style={styles.questionNumber}>
@@ -22,27 +39,12 @@ export default function CorrectionScreen() {
 
                 <FlatList
                     data={item.answers}
-                    renderItem={renderItemAnswer}
+                    renderItem={CompQuestion}
                 />
 
             </View>
         );
     };
-    const renderItemAnswer = ({item , index}) => {
-        return(
-            <View>
-                <TouchableOpacity  style={[styles.button , item.correct ? {backgroundColor: "#168d20", borderBottomColor: "#0f7518", borderEndColor: "#0f7518"} : {backgroundColor:"#8d0700", borderBottomColor: "#5d0703", borderEndColor: "#5d0703"} ]}>
-                <View>
-                        <Text style={[styles.text, item.correct ? {backgroundColor: "#168d20", borderBottomColor: "#0f7518", borderEndColor: "#0f7518"} : {backgroundColor:"#8d0700", borderBottomColor: "#5d0703", borderEndColor: "#5d0703"}]}>{item.text}</Text>
-                    </View>
-                </TouchableOpacity>
-
-            </View>
-        )
-
-
-
-    }
     return (
 
         <View style={styles.view}>

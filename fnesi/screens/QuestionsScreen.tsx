@@ -26,9 +26,10 @@ const QuestionsScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
     const {modSansCorrection} = route.params;
-    const {local} = route.params
+    const {local} = route.params;
     const [seconds, setSeconds] = React.useState(10);
     const [isActive, setIsActive] = useState(true);
+    const [questionRepondu, setMyArray] = useState([]);
 
 
     const topValue = useState(new Animated.Value(0)) [0]
@@ -38,11 +39,10 @@ const QuestionsScreen = () => {
 
 
     const renderItem = ({item}) => {
-
         const backgroundColor = item.id === selectedId ? "#172f46" : "#295B8D";
 
         function validAnswer(id , correct) {
-            setSelectedId(id)
+            setSelectedId(id);
             if (correct){
                 isValid(true);
             }
@@ -87,7 +87,6 @@ const QuestionsScreen = () => {
         }
 
         if (seconds === 0 ){
-            console.log('Perdu')
             reset()
             setIsActive(!isActive);
             validate()
@@ -115,17 +114,22 @@ const QuestionsScreen = () => {
 
     function validate() {
 
+        console.log(selectedId)
+        if (selectedId === null) {
+            setMyArray(oldArray => [...oldArray, "0"]);
+        }
+        else {
+            setMyArray(oldArray => [...oldArray, selectedId]);
+        }
         setIsActive(!isActive)
         if (valid){
 
-            console.log("Bravo GG");
             addpoints(points +1);
             isValid(false);
             setSelectedId(null)
             if (modSansCorrection){
 
                 setIsActive(!isActive)
-                console.log('mode sans correction')
              continuer()
             }
             else {
@@ -134,9 +138,7 @@ const QuestionsScreen = () => {
         }
         else {
 
-            console.log('ahah la loose');
             if (modSansCorrection){
-                console.log('mode sans correction')
 
                 setIsActive(!isActive)
               continuer()
@@ -155,13 +157,13 @@ const QuestionsScreen = () => {
         reset()
         setIsActive(true)
         if (question === 4) {
-
+            console.log(questionRepondu)
             nextQuestion(0);
             addpoints(0);
             enpause(false);
             reset()
             navigation.navigate('Classement', {
-                points: points}) }
+                points: points , local : local , questionRepondu : questionRepondu}) }
 
         else {
             nextQuestion(question + 1);
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     },
     view: {
         flex: 1,
-       
+
     },
     container: {
         flex: 1,

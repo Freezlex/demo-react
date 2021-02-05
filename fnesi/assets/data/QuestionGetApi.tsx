@@ -13,7 +13,7 @@ function QuestionGetApi(theme: number) {
         redirect: 'follow'
     };
 
-    fetch("http://localhost:8080/test/theme", requestOptions)
+    fetch("http://localhost:8080/test/theme")
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));

@@ -6,19 +6,21 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 export default function Classement() {
     const route = useRoute();
     const { points} = route.params;
+    const { local} = route.params;
+    const {questionRepondu} = route.params
     const navigation = useNavigation( );
 
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titreCenter}>
-                <Text style={styles.title}>Classement</Text>
+                <Text style={styles.title}>{local ? "Score " : "Classement"}</Text>
             </View>
             <View style={styles.textAlign}>
                 <Text style={styles.text}>1er Pseudo {points} Points</Text>
             </View>
             <View style={styles.view}>
-                <TouchableOpacity onPress={() => navigation.navigate('Correction')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Correction' , {questionRepondu : questionRepondu})}>
                     <View style={styles.button}>
                         <Text style={styles.buttonText}>Correction</Text>
                     </View>

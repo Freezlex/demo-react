@@ -13,22 +13,15 @@ export default function SuggestionScreen() {
             </View>
             <View style={styles.align}>
                 <Text style={styles.titre}>Suggestion</Text>
-                
+
             </View>
             <View>
-                <View style={styles.center}>
-                    <Text style={styles.text} >Suggestion de thème</Text>
-                    <View style={styles.viewContainer}>
-                        <TextInput style={styles.textInput} placeholder="Votre proposition"></TextInput>
-                        <Text style={styles.icone}><AntDesign name="right" size={32} color="white"/></Text>
-                    </View> 
-                </View>
                 <View  style={styles.center}>
                     <Text style={styles.text}>Suggestion de question</Text>
                     <View style={styles.viewContainer}>
                         <TextInput style={styles.textInput} placeholder="Votre proposition"></TextInput>
                         <Text style={styles.icone}><AntDesign name="right" size={32} color="white"/></Text>
-                    </View> 
+                    </View>
                 </View>
             </View>
         </SafeAreaView>
