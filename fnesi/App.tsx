@@ -22,6 +22,8 @@ import {MaterialCommunityIcons, Ionicons, Entypo, Feather} from '@expo/vector-ic
 import ReglageScreen from './screens/ReglageScreen';
 import CorrectionScreen from './screens/Correction';
 import {createStackNavigator} from '@react-navigation/stack';
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -45,7 +47,7 @@ export default function App() {
               options={{drawerIcon: ({focused, size}) => (
               <Ionicons name="md-home" style={{position:'absolute'}} size={size} color={focused ? '#7cc' : '#ccc'}/>
               )}}/>
-               <Drawer.Screen name="Profile" component={ProfileScreen}
+               <Drawer.Screen name="Login" component={LoginScreen}
               options={{drawerIcon: ({focused, size}) => (
               <MaterialCommunityIcons name="account" size={size} color={focused ? '#7cc' : '#ccc'} />
               )}}/>
@@ -86,6 +88,11 @@ export default function App() {
                   title: undefined,
                   drawerIcon: () => null,
               }}/>
+                <Drawer.Screen name="Profile" component={ProfileScreen}   options={{
+                    drawerLabel: () => null,
+                    title: undefined,
+                    drawerIcon: () => null,
+                }}/>
               <Drawer.Screen name="GameMenu" component={JoinsGameMenu}   options={{
                   drawerLabel: () => null,
                   drawerIcon: () => null,
@@ -101,6 +108,11 @@ export default function App() {
                   drawerIcon: () => null,
                   title: undefined,
               }}/>
+                <Drawer.Screen name="Register" component={RegisterScreen}   options={{
+                    drawerLabel: () => null,
+                    drawerIcon: () => null,
+                    title: undefined,
+                }}/>
 
               {/* Pour ajouter un écran cible dans le menu :
             <Drawer.Screen name="Nom à afficher" component={Screen à ajouter} /> */}

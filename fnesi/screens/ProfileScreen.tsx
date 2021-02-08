@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, Image, Text, TouchableOpacity, Button, TextIn
 import { View } from '../components/Themed';
 import Burger from '../components/Burger';
 import {AntDesign, Ionicons} from '@expo/vector-icons';
+import {useNavigation, useRoute} from "@react-navigation/native";
 
 
 export default function ProfileScreen() {
@@ -10,6 +11,10 @@ export default function ProfileScreen() {
     const [modalVisibleTwo, setModalVisibleTwo] = useState(false);
     const [modalVisibleThree, setModalVisibleThree] = useState(false);
     const [modalVisibleFour, setModalVisibleFour] = useState(false);
+    const route = useRoute();
+    const {isConnected} = route.params;
+
+
 
     const modalPseudo =(
     <Modal transparent={false}  visible={modalVisibleOne}>
@@ -96,6 +101,39 @@ export default function ProfileScreen() {
     </Modal>
     );
 
+    function isLoggedView() {
+        let Show
+        if (isConnected){
+            Show = {
+                display: "none",
+            }
+        } else {
+            Show = {
+            }
+        }
+        return Show
+    }
+
+    function isNotLoggedView() {
+        let Show
+        if (!isConnected){
+            Show = {
+                display: "none",
+            }
+        } else {
+            Show = {
+
+                flex: 1,
+                alignItems: "center",
+                textAlign: "center",
+                alignContent: "center"
+            }
+        }
+        return Show
+    }
+
+    const navigation = useNavigation();
+
     return (
         <SafeAreaView style={styles.container}>
         {modalPseudo}
@@ -105,7 +143,58 @@ export default function ProfileScreen() {
             <View style={styles.view}>
                 <Burger navigation></Burger>
             </View>
-            <View style={styles.center}>
+            <View style={isLoggedView()}>
+            <View style={{
+                marginTop: 50,
+                alignItems: 'center',
+                justifyContent: 'center',}}>
+                <Text style={{
+                    color: 'white',
+                    fontWeight: 'bold',}}>vous n'êtes pas connecté ?</Text>
+
+                <Text style={{
+                    color: 'white',
+                    fontWeight: 'bold',}}>connectez-vous ou inscrivez-vous gratuitement !</Text>
+                <TouchableOpacity onPress={() => navigation.navigate("Login")} style={{
+                    width:"80%",
+                    backgroundColor:"whitesmoke",
+                    borderRadius:25,
+                    height:50,
+                    alignItems:"center",
+                    justifyContent:"center",
+                    marginTop:40,
+                    marginBottom:10,
+                }}>
+                    <Text style={{
+                        color: '#2fb7bd',
+                        fontWeight: 'bold',
+                        textTransform: "uppercase",}}>Se connecter</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity  style={{
+                    width:"80%",
+                    backgroundColor:"whitesmoke",
+                    borderRadius:25,
+                    height:50,
+                    alignItems:"center",
+                    justifyContent:"center",
+                    marginTop:40,
+                    marginBottom:10,
+                }}>
+                    <Text style={{
+                        color: '#2fb7bd',
+                        fontWeight: 'bold',
+                        textTransform: "uppercase",}}>S'inscrire</Text>
+                </TouchableOpacity>
+            </View>
+            </View>
+            <View style={isNotLoggedView()}>
+            <View style={{
+                flex: 1,
+                alignItems: "center",
+                textAlign: "center",
+                alignContent: "center"
+            }}>
                 <Image style={styles.logo} source={require("../assets/images/person.png")}></Image>
             <View style={styles.viewContainer}>
                     <Text style={styles.text_left}>Pseudo : </Text>
@@ -141,6 +230,7 @@ export default function ProfileScreen() {
                     </View>
                 </TouchableOpacity>
               </View>
+            </View>
         </SafeAreaView>
     );
 }
@@ -160,10 +250,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#2fb7bd'
     },
     center: {
-        flex: 1,
-        alignItems: "center",
-        textAlign: "center",
-        alignContent: "center"
     },
     view: {
         marginTop: 50,
