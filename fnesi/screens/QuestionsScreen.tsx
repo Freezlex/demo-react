@@ -18,13 +18,16 @@ const DATA = QuestionLocal();
 
 
 const QuestionsScreen = () => {
+
+    const route = useRoute();
+    const {code} = route.params;
+    const {playerName} = route.params
     const [selectedId, setSelectedId] = useState(null);
     const [question , nextQuestion] = useState(0);
     const [valid , isValid] = useState(false);
     const [pause , enpause] = useState(false);
     const [points , addpoints] = useState(0);
     const navigation = useNavigation();
-    const route = useRoute();
     const {modSansCorrection} = route.params;
     const {local} = route.params;
     const [seconds, setSeconds] = React.useState(10);
@@ -175,7 +178,7 @@ const QuestionsScreen = () => {
             enpause(false);
             reset()
             navigation.navigate('Classement', {
-                points: points , local : local , questionRepondu : questionRepondu}) }
+                points: points , local : local , questionRepondu : questionRepondu , playerName : playerName , code : code}) }
 
         else {
             nextQuestion(question + 1);

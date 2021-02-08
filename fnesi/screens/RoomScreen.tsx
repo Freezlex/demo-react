@@ -96,7 +96,7 @@ export default function RoomScreen() {
                     SetCanStart(false)
                 }
                 if(rep.code === "INVALID_EVENT"){
-                    navigation.navigate('Question', {modSansCorrection: modSansCorrection , local : local})
+                    navigation.navigate('Question', {modSansCorrection: modSansCorrection , local : local , code: code , playerName : pseudo })
                 }
 
 

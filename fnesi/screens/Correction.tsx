@@ -12,8 +12,6 @@ const DATA = QuestionLocal();
 export default function CorrectionScreen()  {
     const route = useRoute();
     const {questionRepondu} = route.params
-    console.log(questionRepondu)
-    const tabQuestionRep = questionRepondu
 
     const renderItem = ({item , index}) => {
         console.log(item.answers)
@@ -22,7 +20,7 @@ export default function CorrectionScreen()  {
 
         const CompQuestion = ({item : item}) => {
             return   <View>
-                <TouchableOpacity  style={[styles.button , item.correct ? {backgroundColor: "#168d20", borderBottomColor: "#0f7518", borderEndColor: "#0f7518"} : {backgroundColor:"#8d0700", borderBottomColor: "#5d0703", borderEndColor: "#5d0703"} ]}>
+                <TouchableOpacity  style={[questionRepondu[indox] == item.id ? styles.backgroundOverlay : styles.button , styles.button , item.correct ? {backgroundColor: "#168d20", borderBottomColor: "#0f7518", borderEndColor: "#0f7518"} : {backgroundColor:"#8d0700", borderBottomColor: "#5d0703", borderEndColor: "#5d0703"} ]}>
                     <View>
                         <Text style={[styles.text, item.correct ? {backgroundColor: "#168d20", borderBottomColor: "#0f7518", borderEndColor: "#0f7518"} : {backgroundColor:"#8d0700", borderBottomColor: "#5d0703", borderEndColor: "#5d0703"}]}>{questionRepondu[indox] == item.id ? "Votre réponse " + item.text : item.text}</Text>
                     </View>
@@ -100,4 +98,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textTransform: "uppercase",
     },
+    backgroundOverlay : {
+        shadowColor: "#dcea12",
+        shadowOffset: {
+            width: 0,
+            height: 16.00,
+        },
+        shadowOpacity: 0.70,
+        shadowRadius: 25.00,
+    }
 });

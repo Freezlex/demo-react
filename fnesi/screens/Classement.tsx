@@ -2,19 +2,53 @@ import * as React from 'react';
 import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { View } from '../components/Themed';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {Stomp} from '@stomp/stompjs';
+import url from '../env/variableUrl';
+const urlA = "ws://"+ url+":8080/ws-fnesi/websocket";
+const client = Stomp.client(urlA);
 
+client.connect({},  async () => {
+    console.log("Connecté au WS")
+});
 export default function Classement() {
     const route = useRoute();
     const { points} = route.params;
     const { local} = route.params;
     const {questionRepondu} = route.params
     const navigation = useNavigation( );
+    const {code} = route.params;
+    const {playerName} = route.params;
 
+
+    const callback = function(message) {
+        console.log(JSON.parse( message.body , message));
+        // called when the client receives a STOMP message from the server
+        if (message.body) {
+            console.log(JSON.parse( message.body) );
+
+            console.log(JSON.parse( message.body , message));
+        } else {
+            alert("got empty message");
+        }
+    };
+
+    client.subscribe("/topic/room/" + code + "/game", callback);
+    client.send(`/app/room/${code}/game`, {}, JSON.stringify({
+        player: {playerName : playerName , roomId : code},
+        event: {
+            status: "GAME_ENDED",
+            endGameData: {
+                points: 30,
+                answers: ["1","1","5"]
+            }
+        }
+    }))
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titreCenter}>
-                <Text style={styles.title}>{local ? "Score " : "Classement"}</Text>
+                <Text style={styles.title}>{local ? "Classement" : "Score " }</Text>
+                <Text style={styles.title}>{code} {playerName}</Text>
             </View>
             <View style={styles.textAlign}>
                 <Text style={styles.text}>1er Pseudo {points} Points</Text>
