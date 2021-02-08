@@ -1,15 +1,14 @@
 import * as React from 'react';
-import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {SafeAreaView, StyleSheet, Systrace, Text, TouchableOpacity} from 'react-native';
 import { View } from '../components/Themed';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {Stomp} from '@stomp/stompjs';
 import url from '../env/variableUrl';
-const urlA = "ws://"+ url+":8080/ws-fnesi/websocket";
-const client = Stomp.client(urlA);
 
-client.connect({},  async () => {
-    console.log("Connecté au WS")
-});
+/*
+ * TODO : Import client for WebSocket
+ */
+
 export default function Classement() {
     const route = useRoute();
     const { points} = route.params;
@@ -33,10 +32,11 @@ export default function Classement() {
     };
 
     client.subscribe("/topic/room/" + code + "/game", callback);
+    console.log("Sending message")
     client.send(`/app/room/${code}/game`, {}, JSON.stringify({
         player: {playerName : playerName , roomId : code},
         event: {
-            status: "GAME_ENDED",
+            status: "PLAYER_ENDED",
             endGameData: {
                 points: 30,
                 answers: ["1","1","5"]
