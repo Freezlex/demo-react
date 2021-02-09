@@ -51,7 +51,7 @@ export default function LoginScreen() {
 
         <View style={styles.container}>
             <Image
-                source={require('../assets/images/FNESI.PNG')}
+                source={require('../assets/images/FNESI.png')}
             />
 
             <View style={styles.inputView} >
