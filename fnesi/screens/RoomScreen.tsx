@@ -95,7 +95,7 @@ export default function RoomScreen() {
                 if(rep.status === "CANCEL_START_GAME"){
                     SetCanStart(false)
                 }
-                if(rep.status === "GAME_START"){
+                if(rep.code === "INVALID_EVENT"){
                     navigation.navigate('Question', {modSansCorrection: modSansCorrection , local : local , code: code , playerName : pseudo })
                 }
 

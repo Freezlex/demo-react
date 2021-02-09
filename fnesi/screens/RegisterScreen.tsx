@@ -20,6 +20,7 @@ export default function RegisterScreen() {
 
     function PostLogin(){
 
+
         fetch("http://"+ url +":8080/user/new", {
             method: "POST",
             headers: {
@@ -91,10 +92,10 @@ export default function RegisterScreen() {
                 <Picker
                     style={{ height: 50, width: 100 }}
                     onValueChange={(number) => setuniversity(number)}>
-                    <Picker.Item label="UE 1" value='1' />
-                    <Picker.Item label="UE 2" value='2' />
-                    <Picker.Item label="UE 3" value='3' />
-                    <Picker.Item label="UE 4" value='4' />
+                    <Picker.Item label="Semestre 1" value='1' />
+                    <Picker.Item label="Semestre 2" value='2' />
+                    <Picker.Item label="Semstre 3" value='3' />
+                    <Picker.Item label="Semestre 4" value='4' />
                 </Picker>
             </View>
 

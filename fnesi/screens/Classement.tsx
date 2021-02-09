@@ -31,19 +31,6 @@ export default function Classement() {
         }
     };
 
-    client.subscribe("/topic/room/" + code + "/game", callback);
-    console.log("Sending message")
-    client.send(`/app/room/${code}/game`, {}, JSON.stringify({
-        player: {playerName : playerName , roomId : code},
-        event: {
-            status: "PLAYER_ENDED",
-            endGameData: {
-                points: 30,
-                answers: ["1","1","5"]
-            }
-        }
-    }))
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titreCenter}>
